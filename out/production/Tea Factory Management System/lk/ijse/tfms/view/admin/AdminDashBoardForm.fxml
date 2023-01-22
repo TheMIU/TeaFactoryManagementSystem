@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane fx:id="pane" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.tfms.controller.admin.AdminDashBoardFormController">
+   <children>
+      <ImageView fitHeight="1000.0" fitWidth="1932.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../view/assets/admin/AdminSalesAndReports.jpg" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="14.0" layoutY="14.0" ripplerFill="TRANSPARENT" style="-fx-opacity: 0%;" />
+      <JFXButton buttonType="RAISED" contentDisplay="CENTER" layoutX="58.0" layoutY="440.0" onAction="#manageUsersOnAction" prefHeight="119.0" prefWidth="332.0" ripplerFill="#2bff3d" style="-fx-opacity: 75%;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="CENTER" layoutX="58.0" layoutY="580.0" onAction="#setConstanceOnAction" prefHeight="119.0" prefWidth="332.0" ripplerFill="#2bff3d" style="-fx-opacity: 75%;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton fx:id="btnLogin11" buttonType="RAISED" contentDisplay="CENTER" layoutX="58.0" layoutY="718.0" onAction="#userDashboardOnAction" prefHeight="119.0" prefWidth="332.0" ripplerFill="#2bff3d" style="-fx-opacity: 75%;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <Label fx:id="lblSummery" alignment="CENTER" layoutX="1141.0" layoutY="310.0" prefHeight="107.0" prefWidth="228.0" style="-fx-font-size: 50; -fx-text-fill: #ffffff; -fx-font-weight: bold;" styleClass="\\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Profit" />
+      <Label fx:id="lblIncome" layoutX="972.0" layoutY="490.0" prefHeight="38.0" prefWidth="393.0" style="-fx-font-size: 30; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Income" />
+      <Label fx:id="lblExpense" layoutX="972.0" layoutY="548.0" prefHeight="38.0" prefWidth="393.0" style="-fx-font-size: 30; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="expence" />
+      <Label fx:id="lblDif" layoutX="972.0" layoutY="608.0" prefHeight="38.0" prefWidth="393.0" style="-fx-font-size: 30; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="dif" />
+      <GridPane layoutX="1466.0" layoutY="253.0" prefHeight="679.0" prefWidth="386.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <JFXButton fx:id="btnReport" buttonType="RAISED" contentDisplay="CENTER" onAction="#btnPaymentReportOnAction" prefHeight="90.0" prefWidth="367.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 25; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Payment Report">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="btnReport1" buttonType="RAISED" contentDisplay="CENTER" onAction="#btnTeaStockReportOnAction" prefHeight="90.0" prefWidth="367.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 25; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Tea Stock Report" GridPane.rowIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="btnReport11" buttonType="RAISED" contentDisplay="CENTER" onAction="#btnOtherStockReportOnAction" prefHeight="90.0" prefWidth="364.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 25; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Other Stocks Report" GridPane.rowIndex="2">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="btnReport111" buttonType="RAISED" contentDisplay="CENTER" onAction="#btnSupplierReportOnAction" prefHeight="90.0" prefWidth="367.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 25; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Suppliers Report" GridPane.rowIndex="3">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="btnReport1111" buttonType="RAISED" contentDisplay="CENTER" onAction="#btnBuyerReportOnAction" prefHeight="90.0" prefWidth="367.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 25; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Buyers Report" GridPane.rowIndex="4">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="btnReport11111" buttonType="RAISED" contentDisplay="CENTER" onAction="#btnEmployeeReportOnAction" prefHeight="90.0" prefWidth="367.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 25; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Employees Report" GridPane.rowIndex="5">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

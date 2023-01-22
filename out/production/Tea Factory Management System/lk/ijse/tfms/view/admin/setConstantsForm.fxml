@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.tfms.controller.admin.SetConstantsFormController">
+   <children>
+      <ImageView fitHeight="1000.0" fitWidth="1932.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.9190673828125" AnchorPane.topAnchor="-1.0">
+         <image>
+            <Image url="@../../view/assets/admin/AdminSetConstances.jpg" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="14.0" layoutY="14.0" ripplerFill="TRANSPARENT" style="-fx-opacity: 0%;" />
+      <JFXButton buttonType="RAISED" contentDisplay="CENTER" layoutX="58.0" layoutY="303.0" onAction="#salesAndReportsOnAction" prefHeight="119.0" prefWidth="332.0" ripplerFill="#2bff3d" style="-fx-opacity: 75%;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="CENTER" layoutX="58.0" layoutY="440.0" onAction="#manageUsersOnAction" prefHeight="119.0" prefWidth="332.0" ripplerFill="#2bff3d" style="-fx-opacity: 75%;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton fx:id="btnLogin11" buttonType="RAISED" contentDisplay="CENTER" layoutX="58.0" layoutY="718.0" onAction="#userDashboardOnAction" prefHeight="119.0" prefWidth="332.0" ripplerFill="#2bff3d" style="-fx-opacity: 75%;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <AnchorPane layoutX="566.0" layoutY="278.0" prefHeight="210.0" prefWidth="637.0">
+         <children>
+            <JFXButton fx:id="btnLogin" buttonType="RAISED" contentDisplay="CENTER" layoutX="412.0" layoutY="130.0" prefHeight="44.0" prefWidth="136.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 20; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Change" />
+            <JFXTextField fx:id="txtUserName" focusColor="#00bf06" labelFloat="true" layoutX="288.0" layoutY="134.0" prefHeight="43.0" prefWidth="99.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="142.00" unFocusColor="#616161" />
+            <Label layoutX="104.0" layoutY="140.0" style="-fx-font-size: 20; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="This Month :" />
+            <Label layoutX="256.0" layoutY="143.0" style="-fx-font-size: 20; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Rs." />
+            <Label layoutX="105.0" layoutY="95.0" style="-fx-font-size: 20; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Last Month :" />
+            <Label layoutX="256.0" layoutY="97.0" prefHeight="24.0" prefWidth="129.0" style="-fx-font-size: 20; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Rs. 140 /=" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="77.0" layoutY="7.0" prefHeight="45.0" prefWidth="471.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-background-color: #061A23; -fx-text-fill: #ffffff;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Tea 1 kg pay Price " />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="565.0" layoutY="534.0" prefHeight="359.0" prefWidth="1201.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="77.0" layoutY="19.0" prefHeight="45.0" prefWidth="472.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-background-color: #061A23; -fx-text-fill: #ffffff;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Employee basic paymentDTO per month" />
+            <AnchorPane layoutX="76.0" layoutY="87.0" prefHeight="76.0" prefWidth="491.0">
+               <children>
+                  <JFXButton fx:id="btnLogin1" buttonType="RAISED" contentDisplay="CENTER" layoutX="344.0" layoutY="10.0" prefHeight="48.0" prefWidth="129.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 20; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Change" />
+                  <JFXTextField fx:id="txtUserName1" alignment="CENTER" focusColor="#00bf06" labelFloat="true" layoutX="148.0" layoutY="12.0" prefHeight="43.0" prefWidth="142.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="10 000.00" unFocusColor="#616161" />
+                  <Label layoutX="34.0" layoutY="20.0" style="-fx-font-size: 20; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Driver   Rs." />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="76.0" layoutY="178.0" prefHeight="76.0" prefWidth="491.0">
+               <children>
+                  <JFXButton fx:id="btnLogin12" buttonType="RAISED" contentDisplay="CENTER" layoutX="344.0" layoutY="10.0" prefHeight="48.0" prefWidth="129.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 20; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Change" />
+                  <JFXTextField fx:id="txtUserName11" alignment="CENTER" focusColor="#00bf06" labelFloat="true" layoutX="148.0" layoutY="12.0" prefHeight="43.0" prefWidth="142.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="10 000.00" unFocusColor="#616161" />
+                  <Label layoutX="34.0" layoutY="20.0" style="-fx-font-size: 20; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Driver   Rs." />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="76.0" layoutY="271.0" prefHeight="76.0" prefWidth="491.0">
+               <children>
+                  <JFXButton fx:id="btnLogin121" buttonType="RAISED" contentDisplay="CENTER" layoutX="344.0" layoutY="10.0" prefHeight="48.0" prefWidth="129.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 20; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Change" />
+                  <JFXTextField fx:id="txtUserName111" alignment="CENTER" focusColor="#00bf06" labelFloat="true" layoutX="148.0" layoutY="12.0" prefHeight="43.0" prefWidth="142.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="10 000.00" unFocusColor="#616161" />
+                  <Label layoutX="34.0" layoutY="20.0" style="-fx-font-size: 20; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Driver   Rs." />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="679.0" layoutY="86.0" prefHeight="76.0" prefWidth="491.0">
+               <children>
+                  <JFXButton fx:id="btnLogin13" buttonType="RAISED" contentDisplay="CENTER" layoutX="344.0" layoutY="10.0" prefHeight="48.0" prefWidth="129.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 20; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Change" />
+                  <JFXTextField fx:id="txtUserName12" alignment="CENTER" focusColor="#00bf06" labelFloat="true" layoutX="148.0" layoutY="12.0" prefHeight="43.0" prefWidth="142.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="10 000.00" unFocusColor="#616161" />
+                  <Label layoutX="34.0" layoutY="20.0" style="-fx-font-size: 20; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Driver   Rs." />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="679.0" layoutY="177.0" prefHeight="76.0" prefWidth="491.0">
+               <children>
+                  <JFXButton fx:id="btnLogin122" buttonType="RAISED" contentDisplay="CENTER" layoutX="344.0" layoutY="10.0" prefHeight="48.0" prefWidth="129.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 20; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Change" />
+                  <JFXTextField fx:id="txtUserName112" alignment="CENTER" focusColor="#00bf06" labelFloat="true" layoutX="148.0" layoutY="12.0" prefHeight="43.0" prefWidth="142.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="10 000.00" unFocusColor="#616161" />
+                  <Label layoutX="34.0" layoutY="20.0" style="-fx-font-size: 20; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Driver   Rs." />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="679.0" layoutY="270.0" prefHeight="76.0" prefWidth="491.0">
+               <children>
+                  <JFXButton fx:id="btnLogin1211" buttonType="RAISED" contentDisplay="CENTER" layoutX="344.0" layoutY="10.0" prefHeight="48.0" prefWidth="129.0" style="-fx-background-color: #1F5F5B; -fx-font-size: 20; -fx-text-fill: #ffffff; -fx-font-weight: Bold;" styleClass="\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Change" />
+                  <JFXTextField fx:id="txtUserName1111" alignment="CENTER" focusColor="#00bf06" labelFloat="true" layoutX="148.0" layoutY="12.0" prefHeight="43.0" prefWidth="142.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="10 000.00" unFocusColor="#616161" />
+                  <Label layoutX="34.0" layoutY="20.0" style="-fx-font-size: 20; -fx-font-weight: bold;" styleClass="\\@font-face {    font-family: 'Montserrat';    src: url('Montserrat-Bold.ttf');}.text {    -fx-font-family: &quot;Montserrat&quot;;}" text="Driver   Rs." />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
