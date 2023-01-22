@@ -14,37 +14,37 @@
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM paymentDTO where Buyer_ID is not null ORDER BY CAST(SUBSTRING(Payment_ID, 2) AS UNSIGNED);]]>
+		<![CDATA[SELECT * FROM payment where Buyer_ID is not null ORDER BY CAST(SUBSTRING(Payment_ID, 2) AS UNSIGNED);]]>
 	</queryString>
 	<field name="Payment_ID" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="Payment_ID"/>
 		<property name="com.jaspersoft.studio.field.label" value="Payment_ID"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="paymentDTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
 	</field>
 	<field name="Date" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.name" value="Date"/>
 		<property name="com.jaspersoft.studio.field.label" value="Date"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="paymentDTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
 	</field>
 	<field name="Reason" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="Reason"/>
 		<property name="com.jaspersoft.studio.field.label" value="Reason"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="paymentDTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
 	</field>
 	<field name="Amount" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="Amount"/>
 		<property name="com.jaspersoft.studio.field.label" value="Amount"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="paymentDTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
 	</field>
 	<field name="Method" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="Method"/>
 		<property name="com.jaspersoft.studio.field.label" value="Method"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="paymentDTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
 	</field>
 	<field name="Type" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="Type"/>
 		<property name="com.jaspersoft.studio.field.label" value="Type"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="paymentDTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -166,7 +166,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{Reason}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField >
 					<reportElement style="Detail" positionType="Float" x="396" y="0" width="132" height="18" uuid="a7e04912-1940-4fbd-b381-3f3d6adf8d57">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c7174585-9268-46e8-a192-f74415b4cb85"/>
 					</reportElement>
@@ -175,7 +175,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField >
 					<reportElement style="Detail" positionType="Float" x="528" y="0" width="132" height="18" uuid="41c3cf00-4cc8-4109-8bf6-8db643679e09">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a389731-eab4-4c52-8d3a-ab13489abc2e"/>
 					</reportElement>
@@ -184,7 +184,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{Method}]]></textFieldExpression>
 				</textField>
-				<textField >
+				<textField>
 					<reportElement style="Detail" positionType="Float" x="660" y="0" width="132" height="18" uuid="72a3ce50-b4d9-46fe-a662-792174e2228a">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ef9102f1-6f59-40f0-8d2e-75933d92d66d"/>
 					</reportElement>

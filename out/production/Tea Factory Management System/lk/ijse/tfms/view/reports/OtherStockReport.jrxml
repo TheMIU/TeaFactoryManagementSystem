@@ -14,8 +14,7 @@
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM other_stocks ORDER BY CAST(SUBSTRING(Stock_ID, 2) AS UNSIGNED) ;
-]]>
+		<![CDATA[SELECT * FROM other_stocks ORDER BY CAST(SUBSTRING(Stock_ID, 2) AS UNSIGNED) ;]]>
 	</queryString>
 	<field name="Stock_ID" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="Stock_ID"/>

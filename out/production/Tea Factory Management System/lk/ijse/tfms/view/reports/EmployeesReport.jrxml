@@ -14,37 +14,37 @@
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM employeeDTO ORDER BY CAST(SUBSTRING(EmpID, 2) AS UNSIGNED) ;]]>
+		<![CDATA[SELECT * FROM employee ORDER BY CAST(SUBSTRING(EmpID, 2) AS UNSIGNED) ;]]>
 	</queryString>
 	<field name="EmpID" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="EmpID"/>
 		<property name="com.jaspersoft.studio.field.label" value="EmpID"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employeeDTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
 	<field name="Type" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="Type"/>
 		<property name="com.jaspersoft.studio.field.label" value="Type"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employeeDTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
 	<field name="Name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="Name"/>
 		<property name="com.jaspersoft.studio.field.label" value="Name"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employeeDTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
 	<field name="ID" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="ID"/>
 		<property name="com.jaspersoft.studio.field.label" value="ID"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employeeDTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
 	<field name="Address" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="Address"/>
 		<property name="com.jaspersoft.studio.field.label" value="Address"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employeeDTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
 	<field name="Contact" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="Contact"/>
 		<property name="com.jaspersoft.studio.field.label" value="Contact"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employeeDTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
