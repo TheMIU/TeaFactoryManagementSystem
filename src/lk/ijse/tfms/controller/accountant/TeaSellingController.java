@@ -445,7 +445,9 @@ public class TeaSellingController {
             int qtyFOP;
             qtyFOP = !txtFOP.getText().equals("") ? Integer.parseInt(txtFOP.getText()) : 0;
 
+         // Transaction
             if (buyerIdValid && stockIdValid && amount > 0) {
+
                 Connection connection = DBConnection.getInstance().getConnection();
                 connection.setAutoCommit(false);
 

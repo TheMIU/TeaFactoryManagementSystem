@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.tfms.bo.BuyerBOImpl;
 import lk.ijse.tfms.dao.BuyerDAOImpl;
 import lk.ijse.tfms.dto.BuyerDTO;
 import lk.ijse.tfms.util.Navigation;
@@ -20,7 +21,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
-
 
 public class BuyersFormController {
     public AnchorPane pane;
@@ -41,6 +41,8 @@ public class BuyersFormController {
     public TableColumn<BuyerDTO, String> colBuyerID;
     public TableColumn<BuyerDTO, String> colAddress;
     public TableColumn<BuyerDTO, String> colContact;
+
+    BuyerBOImpl buyerBO = new BuyerBOImpl();
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {
@@ -111,20 +113,20 @@ public class BuyersFormController {
         txtContact.setText(newValue.getContact());
     }
 
-    private void loadSupplierData(String SearchID) {
-        ObservableList<BuyerDTO> list = FXCollections.observableArrayList();
+    public void loadSupplierData(String SearchID) {
         try {
-            ArrayList<BuyerDTO> buyerDTOData = BuyerDAOImpl.getBuyerData();
+            ObservableList<BuyerDTO> list = FXCollections.observableArrayList();
+            ArrayList<BuyerDTO> buyerDTOData = buyerBO.getBuyerData();
             for (BuyerDTO b : buyerDTOData) {
                 if (b.getBuyer_ID().contains(SearchID) || b.getName().contains(SearchID) || b.getAddress().contains(SearchID)) {
                     BuyerDTO buyerDTO = new BuyerDTO(b.getBuyer_ID(), b.getName(), b.getAddress(), b.getContact());
                     list.add(buyerDTO);
                 }
             }
+            tblBuyer.setItems(list);
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);
         }
-        tblBuyer.setItems(list);
     }
 
     //========================== Click On  Actions====================
@@ -155,7 +157,7 @@ public class BuyersFormController {
         btnSave.setDisable(false);
         btnSave.setText("Save");
 
-        String nextID = generateNextSup_ID(BuyerDAOImpl.getCurrentID());
+        String nextID = generateNextSup_ID(buyerBO.getCurrentID());
         txtBuyerID.setText(nextID);
         txtName.requestFocus();
     }
@@ -171,8 +173,7 @@ public class BuyersFormController {
                 String contact = txtContact.getText();
 
                 try {
-                    BuyerDTO buyerDTO = new BuyerDTO(buyerID, name,address, contact);
-                    boolean isInserted = BuyerDAOImpl.insertNewBuyer(buyerDTO);
+                    boolean isInserted = buyerBO.insertNewBuyer(new BuyerDTO(buyerID, name, address, contact));
                     if (isInserted) {
                         new Alert(Alert.AlertType.CONFIRMATION, "Added !").show();
                         btnNewOnAction(actionEvent);
@@ -191,8 +192,8 @@ public class BuyersFormController {
                 String contact = txtContact.getText();
 
                 try {
-                    BuyerDTO buyerDTO = new BuyerDTO(buyerID, name,address, contact);
-                    boolean isUpdated = BuyerDAOImpl.updateBuyer(buyerDTO, buyerID);
+                    BuyerDTO buyerDTO = new BuyerDTO(buyerID, name, address, contact);
+                    boolean isUpdated = buyerBO.updateBuyer(buyerDTO, buyerID);
                     if (isUpdated) {
                         new Alert(Alert.AlertType.CONFIRMATION, "Updated !").show();
                     } else {
@@ -229,7 +230,7 @@ public class BuyersFormController {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Deleted Selected ?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.YES) {
-            Boolean isDeleted = BuyerDAOImpl.deleteBuyer(BuyerID);
+            Boolean isDeleted = buyerBO.deleteBuyer(BuyerID);
             if (isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
                 loadSupplierData("");
