@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmployeeDAOImpl {
-    public static ArrayList<EmployeeDTO> getEmployeeData() throws SQLException, ClassNotFoundException {
+    public ArrayList<EmployeeDTO> getEmployeeData() throws SQLException, ClassNotFoundException {
         ArrayList<EmployeeDTO> employeesData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM employee ORDER BY CAST(SUBSTRING(EmpID, 2) AS UNSIGNED)");
@@ -23,7 +23,7 @@ public class EmployeeDAOImpl {
         return employeesData;
     }
 
-    public static String getCurrentID() throws SQLException, ClassNotFoundException {
+    public String getCurrentID() throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT * FROM employee ORDER BY CAST(SUBSTRING(EmpID, 2) AS UNSIGNED) DESC LIMIT 1");
         while (rs.next()) {
             return rs.getString(1);
@@ -31,12 +31,12 @@ public class EmployeeDAOImpl {
         return null;
     }
 
-    public static Boolean deleteEmployee(String empID) throws SQLException, ClassNotFoundException {
+    public Boolean deleteEmployee(String empID) throws SQLException, ClassNotFoundException {
         Boolean isDeleted = CrudUtil.execute("delete from employee where EmpID = ?",empID);
         return isDeleted;
     }
 
-    public static boolean updateEmployee(EmployeeDTO employeeDTO, String empID) throws SQLException, ClassNotFoundException {
+    public boolean updateEmployee(EmployeeDTO employeeDTO, String empID) throws SQLException, ClassNotFoundException {
         Boolean isUpdated = CrudUtil.execute("update employee set Type = ?, Name = ?, ID = ?,Address = ?, Contact = ? where EmpID = ?;",
                 employeeDTO.getType(),
                 employeeDTO.getName(),
@@ -48,7 +48,7 @@ public class EmployeeDAOImpl {
         return isUpdated;
     }
 
-    public static boolean insertNewEmployee(EmployeeDTO employeeDTO) throws SQLException, ClassNotFoundException {
+    public boolean insertNewEmployee(EmployeeDTO employeeDTO) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into employee values (?,?,?,?,?,?);",
                 employeeDTO.getEmpID(),
                 employeeDTO.getType(),

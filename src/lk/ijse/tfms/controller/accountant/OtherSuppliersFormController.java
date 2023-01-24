@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.tfms.bo.OtherSupplierBOImpl;
 import lk.ijse.tfms.dao.OtherSupplierDAOImpl;
 import lk.ijse.tfms.dto.OtherSupplierDTO;
 import lk.ijse.tfms.util.Navigation;
@@ -43,6 +44,8 @@ public class OtherSuppliersFormController {
     public TableColumn colID;
     public TableColumn colMobileNo;
 
+    OtherSupplierBOImpl otherSupplierBO = new OtherSupplierBOImpl();
+
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.ACCOUNTANT_DASHBOARD, pane);
@@ -59,7 +62,6 @@ public class OtherSuppliersFormController {
     public void dailyCropOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.DAILY_CROP, pane);
     }
-
 
     public void teaSuppliersOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.TEA_SUPPLIERS, pane);
@@ -121,7 +123,7 @@ public class OtherSuppliersFormController {
     private void loadSupplierData(String SearchID) {
         ObservableList<OtherSupplierDTO> list = FXCollections.observableArrayList();
         try {
-            ArrayList<OtherSupplierDTO> otherSupplierDTOData = OtherSupplierDAOImpl.getSupplierData();
+            ArrayList<OtherSupplierDTO> otherSupplierDTOData = otherSupplierBO.getSupplierData();
             for (OtherSupplierDTO o : otherSupplierDTOData) {
                 if (o.getSupID().contains(SearchID) || o.getName().contains(SearchID) || o.getSup_Type().contains(SearchID)) {
                     OtherSupplierDTO ts = new OtherSupplierDTO(o.getSupID(), o.getSup_Type(), o.getName(), o.getID(), o.getContact());
@@ -173,7 +175,7 @@ public class OtherSuppliersFormController {
         btnSave.setDisable(false);
         btnSave.setText("Save");
 
-        String nextID = generateNextSup_ID(OtherSupplierDAOImpl.getCurrentID());
+        String nextID = generateNextSup_ID(otherSupplierBO.getCurrentID());
         txtSupID.setText(nextID);
         txtSupName.requestFocus();
     }
@@ -192,7 +194,7 @@ public class OtherSuppliersFormController {
                     try {
                         OtherSupplierDTO otherSupplierDTO = new OtherSupplierDTO(supID, type, id, name, mobileNo);
                       //  System.out.println(otherSupplier);
-                        boolean isInserted = OtherSupplierDAOImpl.insertNewSupplier(otherSupplierDTO);
+                        boolean isInserted = otherSupplierBO.insertNewSupplier(otherSupplierDTO);
                         if (isInserted) {
                             new Alert(Alert.AlertType.CONFIRMATION, "Added !").show();
                             btnNewOnAction(actionEvent);
@@ -214,7 +216,7 @@ public class OtherSuppliersFormController {
                     try {
                         OtherSupplierDTO otherSupplierDTO = new OtherSupplierDTO(supID, type, id, name, mobileNo);
                        // System.out.println(otherSupplier);
-                        boolean isUpdated = OtherSupplierDAOImpl.updateSupplier(otherSupplierDTO, supID);
+                        boolean isUpdated = otherSupplierBO.updateSupplier(otherSupplierDTO, supID);
                         if (isUpdated) {
                             cmbType.setDisable(true);
                             new Alert(Alert.AlertType.CONFIRMATION, "Updated !").show();
@@ -260,7 +262,7 @@ public class OtherSuppliersFormController {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Deleted Selected ?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.YES) {
-            Boolean isDeleted = OtherSupplierDAOImpl.deleteSupplier(supID);
+            Boolean isDeleted = otherSupplierBO.deleteSupplier(supID);
             if (isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
                 loadSupplierData("");

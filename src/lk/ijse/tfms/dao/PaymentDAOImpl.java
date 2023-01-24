@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class PaymentDAOImpl {
 
-    public static ArrayList<PaymentDTO> getPaymentData() throws SQLException, ClassNotFoundException {
+    public ArrayList<PaymentDTO> getPaymentData() throws SQLException, ClassNotFoundException {
         ArrayList<PaymentDTO> paymentDTOData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM payment ORDER BY CAST(SUBSTRING(Payment_ID, 2) AS UNSIGNED)");
@@ -27,7 +27,7 @@ public class PaymentDAOImpl {
         return paymentDTOData;
     }
 
-    public static ArrayList<PaymentDTO> getPaymentDataBuyers() throws SQLException, ClassNotFoundException {
+    public ArrayList<PaymentDTO> getPaymentDataBuyers() throws SQLException, ClassNotFoundException {
         ArrayList<PaymentDTO> paymentDTOData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM payment where Buyer_ID is not null ORDER BY CAST(SUBSTRING(Payment_ID, 2) AS UNSIGNED) ");
@@ -45,7 +45,7 @@ public class PaymentDAOImpl {
         return paymentDTOData;
     }
 
-    public static ArrayList<PaymentDTO> getPaymentDataSup() throws SQLException, ClassNotFoundException {
+    public ArrayList<PaymentDTO> getPaymentDataSup() throws SQLException, ClassNotFoundException {
         ArrayList<PaymentDTO> paymentDTOData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM payment where Supplier_ID is not null ORDER BY CAST(SUBSTRING(Payment_ID, 2) AS UNSIGNED) ");
@@ -63,7 +63,7 @@ public class PaymentDAOImpl {
         return paymentDTOData;
     }
 
-    public static ArrayList<PaymentDTO> getPaymentDataEmp() throws SQLException, ClassNotFoundException {
+    public ArrayList<PaymentDTO> getPaymentDataEmp() throws SQLException, ClassNotFoundException {
         ArrayList<PaymentDTO> paymentDTOData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM payment where EmpID is not null ORDER BY CAST(SUBSTRING(Payment_ID, 2) AS UNSIGNED) ");
@@ -81,7 +81,7 @@ public class PaymentDAOImpl {
         return paymentDTOData;
     }
 
-    public static String getCurrentPaymentID() throws SQLException, ClassNotFoundException {
+    public String getCurrentPaymentID() throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT * FROM payment ORDER BY CAST(SUBSTRING(Payment_ID, 2) AS UNSIGNED) DESC LIMIT 1");
         while (rs.next()) {
             return rs.getString(1);
@@ -89,15 +89,7 @@ public class PaymentDAOImpl {
         return null;
     }
 
-    public static String getSupplierName(String id) throws SQLException, ClassNotFoundException {
-        ResultSet rs = CrudUtil.execute("SELECT name FROM other_suppliers where Supplier_ID = ?",id);
-        while (rs.next()) {
-            return rs.getString(1);
-        }
-        return "Not found";
-    }
-
-    public static String getBuyerName(String id) throws SQLException, ClassNotFoundException {
+    public String getBuyerName(String id) throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT name FROM buyers where Buyer_ID = ?",id);
         while (rs.next()) {
             return rs.getString(1);
@@ -105,7 +97,15 @@ public class PaymentDAOImpl {
         return "Not found";
     }
 
-    public static String getEmployeeName(String id) throws SQLException, ClassNotFoundException {
+    public String getSupplierName(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rs = CrudUtil.execute("SELECT name FROM other_suppliers where Supplier_ID = ?",id);
+        while (rs.next()) {
+            return rs.getString(1);
+        }
+        return "Not found";
+    }
+
+    public String getEmployeeName(String id) throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT name FROM employee where EmpID = ?",id);
         while (rs.next()) {
             return rs.getString(1);
@@ -113,7 +113,7 @@ public class PaymentDAOImpl {
         return "Not found";
     }
 
-    public static boolean insertNewPayment(PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
+    public boolean insertNewPayment(PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into payment (Payment_ID, Date, Reason, Amount, Method, Type, Buyer_ID, EmpID, Supplier_ID)\n" +
                         "values (?,?,?,?,?,?,?,?,?);",
                 paymentDTO.getPayment_ID(),
@@ -128,7 +128,7 @@ public class PaymentDAOImpl {
         );
     }
 
-    public static boolean updatePayment(PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
+    public boolean updatePayment(PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
         Boolean isUpdated = CrudUtil.execute("update payment\n" +
                         "set Date = ? , Reason = ? , Amount = ? , Method = ? , Type = ?, Buyer_ID = ?, EmpID = ?, Supplier_ID = ?  \n" +
                         "where Payment_ID = ?;",
@@ -145,12 +145,12 @@ public class PaymentDAOImpl {
         return isUpdated;
     }
 
-    public static Boolean deletePayment(String paymentID) throws SQLException, ClassNotFoundException {
+    public Boolean deletePayment(String paymentID) throws SQLException, ClassNotFoundException {
         Boolean isDeleted = CrudUtil.execute("delete from payment where Payment_ID = ?",paymentID);
         return isDeleted;
     }
 
-    public static double getSummery(String type) throws SQLException, ClassNotFoundException {
+    public double getSummery(String type) throws SQLException, ClassNotFoundException {
         double tot = 0;
         ResultSet rs =  CrudUtil.execute("select sum(Amount) from payment where Type = ? ",type);
         while (rs.next()) {

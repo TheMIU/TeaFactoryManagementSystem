@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DailyCropDAOImpl {
-    public static String getSupplierName(String supID) {
+    public String getSupplierName(String supID) {
         try {
             ResultSet resultSet = CrudUtil.execute("select name from tea_suppliers where Suppliers_ID = ?;",supID);
             while (resultSet.next()){
@@ -21,7 +21,7 @@ public class DailyCropDAOImpl {
         return "no";
     }
 
-    public static boolean saveDailyCrop(DailyCropDTO dailyCropDTO) throws SQLException, ClassNotFoundException {
+    public boolean saveDailyCrop(DailyCropDTO dailyCropDTO) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into daily_crop values (?,?,?);",
                 dailyCropDTO.getSupID(),
                 dailyCropDTO.getDate(),
@@ -29,7 +29,7 @@ public class DailyCropDAOImpl {
         );
     }
 
-    public static ArrayList<DailyCropDTO> getData() throws SQLException, ClassNotFoundException {
+    public ArrayList<DailyCropDTO> getData() throws SQLException, ClassNotFoundException {
         ArrayList<DailyCropDTO> cropData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("select * from daily_crop");
@@ -42,12 +42,12 @@ public class DailyCropDAOImpl {
         return cropData;
     }
 
-    public static Boolean deleteSelected(String supID) throws SQLException, ClassNotFoundException {
+    public Boolean deleteSelected(String supID) throws SQLException, ClassNotFoundException {
         Boolean isDeleted = CrudUtil.execute("delete from daily_crop where Suppliers_ID = ?", supID);
         return isDeleted;
     }
 
-    public static boolean update(DailyCropDTO dc) throws SQLException, ClassNotFoundException {
+    public boolean update(DailyCropDTO dc) throws SQLException, ClassNotFoundException {
         Boolean isUpdated = CrudUtil.execute("update daily_crop set  Date = ?, NetWeight = ? where Suppliers_ID = ? && Date = ? ;",
                 dc.getDate(),
                 dc.getWeight(),
@@ -57,7 +57,7 @@ public class DailyCropDAOImpl {
         return isUpdated;
     }
 
-    public static String getTotalKg(LocalDate now) throws SQLException, ClassNotFoundException {
+    public String getTotalKg(LocalDate now) throws SQLException, ClassNotFoundException {
         String date = now.toString();
         String kg = null;
         ResultSet rs =  CrudUtil.execute("select sum(NetWeight) from daily_crop where Date = ?",date);
@@ -71,7 +71,7 @@ public class DailyCropDAOImpl {
         }
     }
 
-    public static String getTotalKg() throws SQLException, ClassNotFoundException {
+    public String getTotalKg() throws SQLException, ClassNotFoundException {
         String kg = null;
         ResultSet rs =  CrudUtil.execute("select sum(NetWeight) from daily_crop");
         while (rs.next()) {
@@ -84,7 +84,7 @@ public class DailyCropDAOImpl {
         }
     }
 
-    public static String getProductionKg() throws SQLException, ClassNotFoundException {
+    public String getProductionKg() throws SQLException, ClassNotFoundException {
         String kg = null;
         ResultSet rs =  CrudUtil.execute("select sum(One_bag_Weight*AvailableQty) from tea_stock;");
         while (rs.next()) {
@@ -97,7 +97,7 @@ public class DailyCropDAOImpl {
         }
     }
 
-    public static String getBagsCountKg() throws SQLException, ClassNotFoundException {
+    public String getBagsCountKg() throws SQLException, ClassNotFoundException {
         String kg = null;
         ResultSet rs =  CrudUtil.execute("select sum(AvailableQty) from tea_stock;");
         while (rs.next()) {

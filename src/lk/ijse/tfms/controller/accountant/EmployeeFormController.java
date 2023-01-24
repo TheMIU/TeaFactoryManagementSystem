@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.tfms.bo.EmployeeBOImpl;
 import lk.ijse.tfms.dto.EmployeeDTO;
 import lk.ijse.tfms.dao.EmployeeDAOImpl;
 import lk.ijse.tfms.util.Navigation;
@@ -72,6 +73,8 @@ public class EmployeeFormController {
 
     @FXML
     private JFXButton btnteaCollecting;
+
+    EmployeeBOImpl employeeBO = new EmployeeBOImpl();
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {
@@ -149,10 +152,12 @@ public class EmployeeFormController {
         txtEmpID.setText(newValue.getEmpID());
     }
 
+
+
     private void loadEmployeeData(String SearchID) {
         ObservableList<EmployeeDTO> list = FXCollections.observableArrayList();
         try {
-            ArrayList<EmployeeDTO> employeeDTOData = EmployeeDAOImpl.getEmployeeData();
+            ArrayList<EmployeeDTO> employeeDTOData = employeeBO.getEmployeeData();
             for (EmployeeDTO e : employeeDTOData) {
                 if (e.getEmpID().contains(SearchID) || e.getName().contains(SearchID) || e.getAddress().contains(SearchID)) {
                     EmployeeDTO em = new EmployeeDTO(e.getEmpID(), e.getType(), e.getName(), e.getAddress() , e.getContact(),e.getId());
@@ -192,7 +197,7 @@ public class EmployeeFormController {
         btnSave.setDisable(false);
         btnSave.setText("Save");
 
-        String nextID = generateNextSup_ID(EmployeeDAOImpl.getCurrentID());
+        String nextID = generateNextSup_ID(employeeBO.getCurrentID());
         txtEmpID.setText(nextID);
         txtName.requestFocus();
     }
@@ -210,8 +215,7 @@ public class EmployeeFormController {
                     String mobileNo = txtMobile.getText();
 
                     try {
-                        EmployeeDTO employeeDTO = new EmployeeDTO(empID, type, name, address, mobileNo, id);
-                        boolean isInserted = EmployeeDAOImpl.insertNewEmployee(employeeDTO);
+                        boolean isInserted = employeeBO.insertNewEmployee(new EmployeeDTO(empID, type, name, address, mobileNo, id));
                         if (isInserted) {
                             new Alert(Alert.AlertType.CONFIRMATION, "Added !").show();
                             btnNewOnAction(actionEvent);
@@ -233,7 +237,7 @@ public class EmployeeFormController {
 
                     try {
                         EmployeeDTO employeeDTO = new EmployeeDTO(empID, type, name, address, mobileNo, id);
-                        boolean isUpdated = EmployeeDAOImpl.updateEmployee(employeeDTO, empID);
+                        boolean isUpdated = employeeBO.updateEmployee(employeeDTO, empID);
                         if (isUpdated) {
                             new Alert(Alert.AlertType.CONFIRMATION, "Updated !").show();
                         } else {
@@ -271,7 +275,7 @@ public class EmployeeFormController {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Deleted Selected ?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.YES) {
-            Boolean isDeleted = EmployeeDAOImpl.deleteEmployee(EmpID);
+            Boolean isDeleted = employeeBO.deleteEmployee(EmpID);
             if (isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
                 loadEmployeeData("");

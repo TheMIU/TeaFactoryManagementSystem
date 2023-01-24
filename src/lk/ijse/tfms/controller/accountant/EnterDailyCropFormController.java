@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.tfms.bo.DailyCropBOImpl;
 import lk.ijse.tfms.dto.DailyCropDTO;
 import lk.ijse.tfms.dao.DailyCropDAOImpl;
 import lk.ijse.tfms.util.Navigation;
@@ -61,6 +62,8 @@ public class EnterDailyCropFormController {
     @FXML
     private JFXButton btnManageSuppliers;
 
+    DailyCropBOImpl dailyCropBO = new DailyCropBOImpl();
+
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.ACCOUNTANT_DASHBOARD, pane);
@@ -86,7 +89,7 @@ public class EnterDailyCropFormController {
     //========================== Beginning ====================
     public void initialize() throws SQLException, ClassNotFoundException {
         dateLbl.setText(LocalDate.now()+" Collected");
-        lblKg.setText(DailyCropDAOImpl.getTotalKg(LocalDate.now())+" kg");
+        lblKg.setText(dailyCropBO.getTotalKg(LocalDate.now())+" kg");
         txtDate.setText(LocalDate.now().toString());
         colSupID.setCellValueFactory(new PropertyValueFactory<>("supID"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -106,7 +109,7 @@ public class EnterDailyCropFormController {
                 btnCancel2.setDisable(true);
                 btnUpdate.setDisable(true);
                 btnEdit.setDisable(false);
-                txtName2.setText(DailyCropDAOImpl.getSupplierName(newValue.getSupID()));
+                txtName2.setText(dailyCropBO.getSupplierName(newValue.getSupID()));
             }
         });
 
@@ -127,7 +130,7 @@ public class EnterDailyCropFormController {
     private void loadData(String SearchID) {
         ObservableList<DailyCropDTO> list = FXCollections.observableArrayList();
         try {
-            ArrayList<DailyCropDTO> cropData = DailyCropDAOImpl.getData();
+            ArrayList<DailyCropDTO> cropData = dailyCropBO.getData();
             for (DailyCropDTO d : cropData) {
                 if (d.getDate().contains(SearchID) || d.getSupID().contains(SearchID)) {
                     DailyCropDTO dc = new DailyCropDTO( d.getDate(),d.getSupID(), d.getWeight());
@@ -139,7 +142,7 @@ public class EnterDailyCropFormController {
         }
         tblDailyCrop.setItems(list);
         try {
-            lblKg.setText(DailyCropDAOImpl.getTotalKg(LocalDate.now())+" kg");
+            lblKg.setText(dailyCropBO.getTotalKg(LocalDate.now())+" kg");
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.INFORMATION, "Enter Today daily crop!").show();
         }
@@ -149,7 +152,7 @@ public class EnterDailyCropFormController {
     //-----------------------Search Button---------------------
     public void btnSearchIDOnAction(ActionEvent actionEvent) {
         String supID = txtSupID.getText();
-        String name = DailyCropDAOImpl.getSupplierName(supID);
+        String name = dailyCropBO.getSupplierName(supID);
         if(!name.equals("no")){
             txtSupName.setText(name);
         }else {
@@ -167,7 +170,7 @@ public class EnterDailyCropFormController {
                 double weight = Double.parseDouble(txtWeight.getText());
 
                 DailyCropDTO dailyCropDTO = new DailyCropDTO(supID,date,weight);
-                boolean isInserted = DailyCropDAOImpl.saveDailyCrop(dailyCropDTO);
+                boolean isInserted = dailyCropBO.saveDailyCrop(dailyCropDTO);
                 if (isInserted) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Added !").show();
                 }
@@ -203,7 +206,7 @@ public class EnterDailyCropFormController {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Deleted Selected ?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.YES) {
-            Boolean isDeleted = DailyCropDAOImpl.deleteSelected(supID);
+            Boolean isDeleted = dailyCropBO.deleteSelected(supID);
             if (isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
                 loadData("");
@@ -238,7 +241,7 @@ public class EnterDailyCropFormController {
 
             DailyCropDTO dc = new DailyCropDTO(sid,date,weight);
 
-            boolean isUpdated = DailyCropDAOImpl.update(dc);
+            boolean isUpdated = dailyCropBO.update(dc);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Updated !").show();
             } else {

@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.tfms.bo.TeaSupplierBOImpl;
 import lk.ijse.tfms.dao.TeaSupplierDAOImpl;
 import lk.ijse.tfms.dto.TeaSupplierDTO;
 import lk.ijse.tfms.util.Navigation;
@@ -68,6 +69,8 @@ public class TeaSuppliersFormController {
     @FXML
     private JFXButton btnteaCollecting;
 
+    TeaSupplierBOImpl teaSupplierBO = new TeaSupplierBOImpl();
+
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.ACCOUNTANT_DASHBOARD, pane);
@@ -84,7 +87,6 @@ public class TeaSuppliersFormController {
     public void dailyCropOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.DAILY_CROP, pane);
     }
-
 
     public void employeeOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.EMPLOYEES, pane);
@@ -143,7 +145,7 @@ public class TeaSuppliersFormController {
     private void loadSupplierData(String SearchID) {
         ObservableList<TeaSupplierDTO> list = FXCollections.observableArrayList();
         try {
-            ArrayList<TeaSupplierDTO> teaSupplierDTOData = TeaSupplierDAOImpl.getSupplierData();
+            ArrayList<TeaSupplierDTO> teaSupplierDTOData = teaSupplierBO.getSupplierData();
             for (TeaSupplierDTO t : teaSupplierDTOData) {
                 if (t.getSup_id().contains(SearchID) || t.getName().contains(SearchID) || t.getAddress().contains(SearchID)) {
                     TeaSupplierDTO ts = new TeaSupplierDTO(t.getSup_id(), t.getName(), t.getId(), t.getAddress(), t.getMobile_num());
@@ -183,7 +185,7 @@ public class TeaSuppliersFormController {
         btnSave.setDisable(false);
         btnSave.setText("Save");
 
-        String nextID = generateNextSup_ID(TeaSupplierDAOImpl.getCurrentID());
+        String nextID = generateNextSup_ID(teaSupplierBO.getCurrentID());
         txtSupID.setText(nextID);
         txtSupName.requestFocus();
     }
@@ -199,7 +201,7 @@ public class TeaSuppliersFormController {
 
             try {
                 TeaSupplierDTO teaSupplierDTO = new TeaSupplierDTO(supID, name, id, address, mobileNo);
-                boolean isInserted = TeaSupplierDAOImpl.insertNewSupplier(teaSupplierDTO);
+                boolean isInserted = teaSupplierBO.insertNewSupplier(teaSupplierDTO);
                 if (isInserted) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Added !").show();
                 }
@@ -219,7 +221,7 @@ public class TeaSuppliersFormController {
 
             try {
                 TeaSupplierDTO teaSupplierDTO = new TeaSupplierDTO(supID, name, id, address, mobileNo);
-                boolean isUpdated = TeaSupplierDAOImpl.updateSupplier(teaSupplierDTO, supID);
+                boolean isUpdated = teaSupplierBO.updateSupplier(teaSupplierDTO, supID);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Updated !").show();
                 } else {
@@ -251,7 +253,7 @@ public class TeaSuppliersFormController {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Deleted Selected ?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.YES) {
-            Boolean isDeleted = TeaSupplierDAOImpl.deleteSupplier(supID);
+            Boolean isDeleted = teaSupplierBO.deleteSupplier(supID);
             if (isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
                 loadSupplierData("");

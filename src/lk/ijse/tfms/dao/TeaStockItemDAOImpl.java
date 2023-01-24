@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class TeaStockItemDAOImpl {
 
-    public static ArrayList<TeaStockItemDTO> getStockItemsData() throws SQLException, ClassNotFoundException {
+    public ArrayList<TeaStockItemDTO> getStockItemsData() throws SQLException, ClassNotFoundException {
         ArrayList<TeaStockItemDTO> teaStockItemDTOData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("select * from tea_stock");
@@ -24,7 +24,7 @@ public class TeaStockItemDAOImpl {
         return teaStockItemDTOData;
     }
 
-    public static String getCurrentStockID() throws SQLException, ClassNotFoundException {
+    public String getCurrentStockID() throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT * FROM tea_stock ORDER BY CAST(SUBSTRING(Stock_ID, 3) AS UNSIGNED) DESC LIMIT 1");
         while (rs.next()) {
             return rs.getString(1);
@@ -32,12 +32,12 @@ public class TeaStockItemDAOImpl {
         return null;
     }
 
-    public static Boolean deleteStockItem(String stockID) throws SQLException, ClassNotFoundException {
+    public Boolean deleteStockItem(String stockID) throws SQLException, ClassNotFoundException {
         Boolean isDeleted = CrudUtil.execute("delete from tea_stock where Stock_ID = ?", stockID);
         return isDeleted;
     }
 
-    public static boolean insertNewStockItem(TeaStockItemDTO teaStockItemDTO) throws SQLException, ClassNotFoundException {
+    public boolean insertNewStockItem(TeaStockItemDTO teaStockItemDTO) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into tea_stock (Stock_ID, Type, Input_Date, One_bag_Weight, Qty,AvailableQty) values (?,?,?,?,?,?);",
                 teaStockItemDTO.getStockID(),
                 teaStockItemDTO.getType(),
@@ -48,7 +48,7 @@ public class TeaStockItemDAOImpl {
         );
     }
 
-    public static boolean updateStockItem(TeaStockItemDTO teaStockItemDTO) throws SQLException, ClassNotFoundException {
+    public boolean updateStockItem(TeaStockItemDTO teaStockItemDTO) throws SQLException, ClassNotFoundException {
         Boolean isUpdated = CrudUtil.execute("update tea_stock set Stock_ID = ?, Type = ?, Input_Date = ?, One_bag_Weight = ?,Qty = ? " +
                         "where Stock_ID = ?;",
                 teaStockItemDTO.getStockID(),
@@ -61,14 +61,20 @@ public class TeaStockItemDAOImpl {
         return isUpdated;
     }
 
-    public static void updateAvailableQTY(String stockID, int qtyP, int qtyOP, int qtyFOP, int qtyGFOP, int qtyTGFOP, int qtyFTGFOP, int qtyBOP, int qtyFBOP) throws SQLException, ClassNotFoundException {
-        CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'P';",qtyP,stockID);
-        CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'OP';",qtyOP,stockID);
-        CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'FOP';",qtyFOP,stockID);
-        CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'GFOP';",qtyGFOP,stockID);
-        CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'TGFOP';",qtyTGFOP,stockID);
-        CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'FTGFOP';",qtyFTGFOP,stockID);
-        CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'BOP';",qtyBOP,stockID);
-        CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'FBOP';",qtyFBOP,stockID);
+    public boolean updateAvailableQTY(String stockID, int qtyP, int qtyOP, int qtyFOP, int qtyGFOP, int qtyTGFOP, int qtyFTGFOP, int qtyBOP, int qtyFBOP) throws SQLException, ClassNotFoundException {
+        boolean b1 = CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'P';", qtyP, stockID);
+        boolean b2 = CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'OP';", qtyOP, stockID);
+        boolean b3 = CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'FOP';", qtyFOP, stockID);
+        boolean b4 = CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'GFOP';", qtyGFOP, stockID);
+        boolean b5 = CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'TGFOP';", qtyTGFOP, stockID);
+        boolean b6 = CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'FTGFOP';", qtyFTGFOP, stockID);
+        boolean b7 = CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'BOP';", qtyBOP, stockID);
+        boolean b8 = CrudUtil.execute(" update tea_stock set AvailableQty =(AvailableQty - ?) where Stock_ID = ? && Type = 'FBOP';", qtyFBOP, stockID);
+
+        if (b1 || b2 || b3 || b4 || b5 || b6 || b7 || b8) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

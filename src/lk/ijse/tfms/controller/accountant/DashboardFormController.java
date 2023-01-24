@@ -5,20 +5,16 @@ import com.jfoenix.controls.JFXTextArea;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.tfms.db.DBConnection;
+import lk.ijse.tfms.bo.DashboardNotesBOImpl;
 import lk.ijse.tfms.dao.DailyCropDAOImpl;
-import lk.ijse.tfms.util.CrudUtil;
 import lk.ijse.tfms.util.Navigation;
 import lk.ijse.tfms.util.Routes;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
+
 
 public class DashboardFormController {
     public JFXButton btnMakePayment;
@@ -59,6 +55,7 @@ public class DashboardFormController {
     @FXML
     private JFXButton btnManageSuppliers;
 
+    DashboardNotesBOImpl dashboardNotesBO = new DashboardNotesBOImpl();
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {
@@ -81,12 +78,15 @@ public class DashboardFormController {
         Navigation.navigate(Routes.DAILY_CROP, pane);
     }
 
+    public void btnLogoutOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.LOGIN, pane);
+    }
 
     //========================== Beginning ====================
     public void initialize() throws SQLException, ClassNotFoundException {
-        lblCollectedTea.setText(DailyCropDAOImpl.getTotalKg()+" kg");
-        lblBags.setText(DailyCropDAOImpl.getBagsCountKg());
-        lblProduction.setText(DailyCropDAOImpl.getProductionKg()+" kg");
+        lblCollectedTea.setText(dashboardNotesBO.getTotalKg()+" kg");
+        lblBags.setText(dashboardNotesBO.getBagsCountKg());
+        lblProduction.setText(dashboardNotesBO.getProductionKg()+" kg");
 
         task1.setText(getNote(1));
         task2.setText(getNote(2));
@@ -95,12 +95,9 @@ public class DashboardFormController {
 
     }
 
-    private String getNote(int id) throws SQLException, ClassNotFoundException {
-        ResultSet rs =  CrudUtil.execute("select note from notes where id = ?;",id);
-        if (rs.next()) {
-            return  rs.getString(1);
-        }
-        return "";
+    //========================== Notes ====================
+    public String getNote(int id) throws SQLException, ClassNotFoundException {
+        return dashboardNotesBO.getNote(id);
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
@@ -109,28 +106,12 @@ public class DashboardFormController {
         String task03 = task3.getText();
         String task04 = task4.getText();
 
-        Connection connection = DBConnection.getInstance().getConnection();
-        connection.setAutoCommit(false);
-
-        CrudUtil.execute("update notes set note = ? where id = ?",task01,1);
-        CrudUtil.execute("update notes set note = ? where id = ?",task02,2);
-        CrudUtil.execute("update notes set note = ? where id = ?",task03,3);
-        CrudUtil.execute("update notes set note = ? where id = ?",task04,4);
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Save notes ?", ButtonType.YES, ButtonType.NO);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.YES) {
-            connection.commit();
+        // save note
+        boolean isSaved = dashboardNotesBO.saveNote(task01, task02, task03, task04);
+        if(isSaved){
             new Alert(Alert.AlertType.INFORMATION, "Saved!").show();
-        } else {
-            connection.rollback();
+        }else {
             new Alert(Alert.AlertType.WARNING, "not saved!").show();
         }
-        connection.setAutoCommit(true);
-
-    }
-
-    public void btnLogoutOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.LOGIN, pane);
     }
 }

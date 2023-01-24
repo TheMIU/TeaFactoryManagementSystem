@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class OtherStockItemDAOImpl {
 
-    public static String getCurrentStockID() throws SQLException, ClassNotFoundException {
+    public  String getCurrentStockID() throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT * FROM other_stocks ORDER BY CAST(SUBSTRING(Stock_ID, 2) AS UNSIGNED) DESC LIMIT 1");
         while (rs.next()) {
             return rs.getString(1);
@@ -20,7 +20,7 @@ public class OtherStockItemDAOImpl {
         return null;
     }
 
-    public static ArrayList<OtherStockItemDTO> getStockItemsData() throws SQLException, ClassNotFoundException {
+    public  ArrayList<OtherStockItemDTO> getStockItemsData() throws SQLException, ClassNotFoundException {
         ArrayList<OtherStockItemDTO> otherStockItemDTOData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("select other_suppliers_stocks.date,\n" +
@@ -46,7 +46,7 @@ public class OtherStockItemDAOImpl {
         return otherStockItemDTOData;
     }
 
-    public static Boolean deleteStockTransactions(String stockID) throws SQLException, ClassNotFoundException {
+    public Boolean deleteStockTransactions(String stockID) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
 
         connection.setAutoCommit(false);
@@ -66,7 +66,7 @@ public class OtherStockItemDAOImpl {
         }
     }
 
-    public static String getSupplierName(String sup_id) throws SQLException, ClassNotFoundException {
+    public String getSupplierName(String sup_id) throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("select Name from other_suppliers where Supplier_ID = ?", sup_id);
         while (rs.next()) {
             return rs.getString(1);
@@ -74,7 +74,7 @@ public class OtherStockItemDAOImpl {
         return "Not found";
     }
 
-    public static String getSupplierType(String sup_id) throws SQLException, ClassNotFoundException {
+    public String getSupplierType(String sup_id) throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("select Supplier_Type from other_suppliers where Supplier_ID = ?", sup_id);
         while (rs.next()) {
             return rs.getString(1);
@@ -82,36 +82,7 @@ public class OtherStockItemDAOImpl {
         return "Not found";
     }
 
-    public static boolean insertNewStockItemTransaction(OtherStockItemDTO otherStockItemDTO) throws SQLException, ClassNotFoundException {
-        String date = otherStockItemDTO.getDate();
-        String stockID = otherStockItemDTO.getStockID();
-        String supID = otherStockItemDTO.getSupplierID();
-        String type = otherStockItemDTO.getType();
-        int qty = otherStockItemDTO.getQty();
-        double price = otherStockItemDTO.getPrice();
-
-        Connection connection = DBConnection.getInstance().getConnection();
-
-        connection.setAutoCommit(false);
-
-        Boolean isInsertedToOther_suppliers_stocks = CrudUtil.execute("insert into other_stocks(Stock_ID, Stock_Type, Qty, Price) " +
-                "values(?, ?, ?, ?)", stockID, type, qty, price);
-        Boolean isInsertedToOther_stocks = CrudUtil.execute("insert into other_suppliers_stocks (Supplier_ID, Stock_ID, Date)" +
-                "values (?, ?, ?);", supID, stockID, date);
-
-        if (isInsertedToOther_suppliers_stocks && isInsertedToOther_stocks) {
-            connection.commit();
-            connection.setAutoCommit(true);
-            return true;
-        } else {
-            new Alert(Alert.AlertType.ERROR, "rollback !").show();
-            connection.rollback();
-            connection.setAutoCommit(true);
-            return false;
-        }
-    }
-
-    public static boolean updateStockItem(OtherStockItemDTO otherStockItemDTO) throws SQLException, ClassNotFoundException {
+    public boolean updateStockItem(OtherStockItemDTO otherStockItemDTO) throws SQLException, ClassNotFoundException {
         String date = otherStockItemDTO.getDate();
         String stockID = otherStockItemDTO.getStockID();
         String supID = otherStockItemDTO.getSupplierID();
@@ -146,5 +117,15 @@ public class OtherStockItemDAOImpl {
             connection.setAutoCommit(true);
             return false;
         }
+    }
+
+    public Boolean insertInto_OtherStocks(String supID, String stockID, String date) throws SQLException, ClassNotFoundException {
+        return  CrudUtil.execute("insert into other_suppliers_stocks (Supplier_ID, Stock_ID, Date)" +
+                "values (?, ?, ?);", supID, stockID, date);
+    }
+
+    public Boolean insertInto_OtherSuppliersStocks(String stockID, String type, int qty, double price) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("insert into other_stocks(Stock_ID, Stock_Type, Qty, Price) " +
+                "values(?, ?, ?, ?)", stockID, type, qty, price);
     }
 }

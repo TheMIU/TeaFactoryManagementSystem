@@ -12,7 +12,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.tfms.bo.BuyerBOImpl;
-import lk.ijse.tfms.dao.BuyerDAOImpl;
 import lk.ijse.tfms.dto.BuyerDTO;
 import lk.ijse.tfms.util.Navigation;
 import lk.ijse.tfms.util.Routes;

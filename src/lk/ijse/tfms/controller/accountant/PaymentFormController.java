@@ -12,15 +12,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.tfms.bo.PaymentBOImpl;
 import lk.ijse.tfms.db.DBConnection;
-import lk.ijse.tfms.dao.PaymentDAOImpl;
 import lk.ijse.tfms.dto.PaymentDTO;
 import lk.ijse.tfms.util.Navigation;
 import lk.ijse.tfms.util.Routes;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
-/*import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.view.JasperViewer;*/
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -132,6 +130,8 @@ public class PaymentFormController {
 
     @FXML
     private JFXButton btnSave1;
+
+    PaymentBOImpl paymentBO = new PaymentBOImpl();
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {
@@ -250,7 +250,7 @@ public class PaymentFormController {
     private void loadData(String SearchID) {
         ObservableList<PaymentDTO> list = FXCollections.observableArrayList();
         try {
-            ArrayList<PaymentDTO> paymentDTOData = PaymentDAOImpl.getPaymentData();
+            ArrayList<PaymentDTO> paymentDTOData = paymentBO.getPaymentData();
             for (PaymentDTO p : paymentDTOData) {
                 if (p.getPayment_ID().contains(SearchID) || p.getType().contains(SearchID)) {
                     PaymentDTO pay = new PaymentDTO(p.getPayment_ID(), p.getDate(), p.getReason(), p.getAmount(), p.getMethod(), p.getType(), p.getBuyerID(), p.getEmpID(), p.getSupID());
@@ -266,13 +266,13 @@ public class PaymentFormController {
     private void loadData(int person) {
         ObservableList<PaymentDTO> list = FXCollections.observableArrayList();
         try {
-            ArrayList<PaymentDTO> paymentDTOData = PaymentDAOImpl.getPaymentData();
+            ArrayList<PaymentDTO> paymentDTOData = paymentBO.getPaymentData();
             if (person == 1) {
-                paymentDTOData = PaymentDAOImpl.getPaymentDataSup();
+                paymentDTOData = paymentBO.getPaymentDataSup();
             } else if (person == 2) {
-                paymentDTOData = PaymentDAOImpl.getPaymentDataBuyers();
+                paymentDTOData = paymentBO.getPaymentDataBuyers();
             } else if (person == 3) {
-                paymentDTOData = PaymentDAOImpl.getPaymentDataEmp();
+                paymentDTOData = paymentBO.getPaymentDataEmp();
             }
             for (PaymentDTO p : paymentDTOData) {
                 PaymentDTO pay = new PaymentDTO(p.getPayment_ID(), p.getDate(), p.getReason(), p.getAmount(), p.getMethod(), p.getType(), p.getBuyerID(), p.getEmpID(), p.getSupID());
@@ -329,7 +329,7 @@ public class PaymentFormController {
         btnSave.setText("Save");
         btnSearch.setDisable(false);
 
-        String nextID = generateNextPaymentID(PaymentDAOImpl.getCurrentPaymentID());
+        String nextID = generateNextPaymentID(paymentBO.getCurrentPaymentID());
         txtPaymentID.setText(nextID);
         txtDate.setText(LocalDate.now().toString());
         txtDate.requestFocus();
@@ -345,7 +345,7 @@ public class PaymentFormController {
             String[] idArray = id.split("");
 
             if (idArray[0].equals("S")) {
-                String name = PaymentDAOImpl.getSupplierName(id);
+                String name = paymentBO.getSupplierName(id);
                 if (!name.equals("Not found")) {
                     txtName.setText(name);
                     nameFound = true;
@@ -355,7 +355,7 @@ public class PaymentFormController {
                     nameFound = false;
                 }
             } else if (idArray[0].equals("E")) {
-                String name = PaymentDAOImpl.getEmployeeName(id);
+                String name = paymentBO.getEmployeeName(id);
                 if (!name.equals("Not found")) {
                     txtName.setText(name);
                     nameFound = true;
@@ -365,7 +365,7 @@ public class PaymentFormController {
                     nameFound = false;
                 }
             } else if (idArray[0].equals("B")) {
-                String name = PaymentDAOImpl.getBuyerName(id);
+                String name = paymentBO.getBuyerName(id);
                 if (!name.equals("Not found")) {
                     txtName.setText(name);
                     nameFound = true;
@@ -410,7 +410,7 @@ public class PaymentFormController {
                             paymentDTO = new PaymentDTO(paymentID, date, reason, amount, method, type, id, null, null);
                         }
 
-                        boolean isInserted = PaymentDAOImpl.insertNewPayment(paymentDTO);
+                        boolean isInserted = paymentBO.insertNewPayment(paymentDTO);
                         if (isInserted) {
                             new Alert(Alert.AlertType.CONFIRMATION, "Added !").show();
                             btnNewOnAction(actionEvent);
@@ -443,7 +443,7 @@ public class PaymentFormController {
                     } else if (idArray[0].equals("B")) {
                         paymentDTO = new PaymentDTO(paymentID, date, reason, amount, method, type, id, null, null);
                     }
-                    boolean isUpdated = PaymentDAOImpl.updatePayment(paymentDTO);
+                    boolean isUpdated = paymentBO.updatePayment(paymentDTO);
                     if (isUpdated) {
                         new Alert(Alert.AlertType.CONFIRMATION, "Updated !").show();
                     } else {
@@ -481,7 +481,7 @@ public class PaymentFormController {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Deleted Selected ?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.YES) {
-            Boolean isDeleted = PaymentDAOImpl.deletePayment(paymentID);
+            Boolean isDeleted = paymentBO.deletePayment(paymentID);
             if (isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
                 loadData("");

@@ -17,7 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import lk.ijse.tfms.dao.TeaStockItemDAOImpl;
+import lk.ijse.tfms.bo.TeaStockBOImpl;
 import lk.ijse.tfms.dto.TeaStockItemDTO;
 import lk.ijse.tfms.util.Navigation;
 import lk.ijse.tfms.util.Routes;
@@ -99,6 +99,8 @@ public class TeaStockFormController {
     private JFXRadioButton rbAll1;
     @FXML
     private JFXTextField txtSearch;
+
+    TeaStockBOImpl teaStockBO = new TeaStockBOImpl();
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {
@@ -202,7 +204,7 @@ public class TeaStockFormController {
     public void loadStockData(String SearchID) {
         ObservableList<TeaStockItemDTO> list = FXCollections.observableArrayList();
         try {
-            ArrayList<TeaStockItemDTO> teaStockItemDTOData = TeaStockItemDAOImpl.getStockItemsData();
+            ArrayList<TeaStockItemDTO> teaStockItemDTOData = teaStockBO.getStockItemsData();
             for (TeaStockItemDTO t : teaStockItemDTOData) {
                 if (t.getType().contains(SearchID) || String.valueOf(t.getWeight()).contains(SearchID) || t.getDate().contains(SearchID)) {
                     TeaStockItemDTO tsi = new TeaStockItemDTO(t.getStockID(), t.getType(), t.getDate(), t.getWeight(), t.getQty(), t.getAvailableQty());
@@ -218,7 +220,7 @@ public class TeaStockFormController {
     public void loadStockData2(String rbType) {
         ObservableList<TeaStockItemDTO> list = FXCollections.observableArrayList();
         try {
-            ArrayList<TeaStockItemDTO> teaStockItemDTOData = TeaStockItemDAOImpl.getStockItemsData();
+            ArrayList<TeaStockItemDTO> teaStockItemDTOData = teaStockBO.getStockItemsData();
             for (TeaStockItemDTO t : teaStockItemDTOData) {
                 if (t.getType().equals(rbType)) {
                     TeaStockItemDTO tsi = new TeaStockItemDTO(t.getStockID(), t.getType(), t.getDate(), t.getWeight(), t.getQty(), t.getAvailableQty());
@@ -258,7 +260,7 @@ public class TeaStockFormController {
         btnSave.setDisable(false);
         btnSave.setText("Save");
 
-        String nextID = generateNextStockItemID(TeaStockItemDAOImpl.getCurrentStockID());
+        String nextID = generateNextStockItemID(teaStockBO.getCurrentStockID());
         txtStockID.setText(nextID);
         txtType.requestFocus();
     }
@@ -277,7 +279,7 @@ public class TeaStockFormController {
 
                     TeaStockItemDTO teaStockItemDTO = new TeaStockItemDTO(stockID, type, date, weight, qty);
 
-                    boolean isInserted = TeaStockItemDAOImpl.insertNewStockItem(teaStockItemDTO);
+                    boolean isInserted = teaStockBO.insertNewStockItem(teaStockItemDTO);
                     if (isInserted) {
                         new Alert(Alert.AlertType.CONFIRMATION, "Added !").show();
                         btnNewOnAction(actionEvent);
@@ -301,7 +303,7 @@ public class TeaStockFormController {
 
                     TeaStockItemDTO teaStockItemDTO = new TeaStockItemDTO(stockID, type, date, weight, qty);
 
-                    boolean isUpdated = TeaStockItemDAOImpl.updateStockItem(teaStockItemDTO);
+                    boolean isUpdated = teaStockBO.updateStockItem(teaStockItemDTO);
                     if (isUpdated) {
                         new Alert(Alert.AlertType.CONFIRMATION, "Updated !").show();
                     } else {
@@ -338,7 +340,7 @@ public class TeaStockFormController {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Deleted Selected ?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.YES) {
-            Boolean isDeleted = TeaStockItemDAOImpl.deleteStockItem(stockID);
+            Boolean isDeleted = teaStockBO.deleteStockItem(stockID);
             if (isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
                 loadStockData("");
@@ -378,7 +380,7 @@ public class TeaStockFormController {
         return "TI01";
     }
 
-    //=======================================================
+    //=================================Tea Selling Form Open
     public void sellOnAction(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../../view/accountant/TeaSelling.fxml"))));

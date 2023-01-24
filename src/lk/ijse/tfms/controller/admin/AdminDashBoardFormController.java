@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Optional;
 
+
 public class AdminDashBoardFormController {
     public AnchorPane pane;
     public Label lblSummery;
@@ -25,6 +26,7 @@ public class AdminDashBoardFormController {
     public Label lblExpense;
     public Label lblIncome;
 
+    PaymentDAOImpl paymentDAO = new PaymentDAOImpl();
 
     public void manageUsersOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.ADMIN_MANAGE_USERS, pane);
@@ -45,8 +47,8 @@ public class AdminDashBoardFormController {
 
     //========================== Beginning ====================
     public void initialize() throws SQLException, ClassNotFoundException {
-        double income = PaymentDAOImpl.getSummery("credit");
-        double expence = PaymentDAOImpl.getSummery("debit");
+        double income = paymentDAO.getSummery("credit");
+        double expence = paymentDAO.getSummery("debit");
 
         lblExpense.setText(String.valueOf(expence));
         lblIncome.setText(String.valueOf(income));

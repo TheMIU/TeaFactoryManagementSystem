@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class TeaSupplierDAOImpl {
 
-    public static boolean insertNewSupplier(TeaSupplierDTO teaSupplierDTO) throws SQLException, ClassNotFoundException {
+    public boolean insertNewSupplier(TeaSupplierDTO teaSupplierDTO) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into tea_suppliers values (?,?,?,?,?);",
                 teaSupplierDTO.getSup_id(),
                 teaSupplierDTO.getName(),
@@ -18,7 +18,7 @@ public class TeaSupplierDAOImpl {
         );
     }
 
-    public static String getCurrentID() throws SQLException, ClassNotFoundException {
+    public String getCurrentID() throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT * FROM tea_suppliers ORDER BY CAST(SUBSTRING(Suppliers_ID, 3) AS UNSIGNED) DESC LIMIT 1");
 
         while (rs.next()) {
@@ -27,7 +27,7 @@ public class TeaSupplierDAOImpl {
         return null;
     }
 
-    public static boolean updateSupplier(TeaSupplierDTO teaSupplierDTO, String supID) throws SQLException, ClassNotFoundException {
+    public boolean updateSupplier(TeaSupplierDTO teaSupplierDTO, String supID) throws SQLException, ClassNotFoundException {
         Boolean isUpdated = CrudUtil.execute("update tea_suppliers set Name = ?, ID = ?, Address = ?,Mobile_No = ? " +
                         "where Suppliers_ID = ?;",
                 teaSupplierDTO.getName(),
@@ -39,7 +39,7 @@ public class TeaSupplierDAOImpl {
         return isUpdated;
     }
 
-    public static ArrayList<TeaSupplierDTO> getSupplierData() throws SQLException, ClassNotFoundException {
+    public ArrayList<TeaSupplierDTO> getSupplierData() throws SQLException, ClassNotFoundException {
         ArrayList<TeaSupplierDTO> teaSupplierDTOData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM tea_suppliers ORDER BY CAST(SUBSTRING(Suppliers_ID, 2) AS UNSIGNED)");
@@ -53,7 +53,7 @@ public class TeaSupplierDAOImpl {
         return teaSupplierDTOData;
     }
 
-    public static Boolean deleteSupplier(String supID) throws SQLException, ClassNotFoundException {
+    public Boolean deleteSupplier(String supID) throws SQLException, ClassNotFoundException {
         Boolean isDeleted = CrudUtil.execute("delete from tea_suppliers where Suppliers_ID = ?",supID);
         return isDeleted;
     }

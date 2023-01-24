@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.tfms.dao.OtherStockItemDAOImpl;
+import lk.ijse.tfms.bo.OtherStocksBOImpl;
 import lk.ijse.tfms.dto.OtherStockItemDTO;
 import lk.ijse.tfms.util.Navigation;
 import lk.ijse.tfms.util.Routes;
@@ -117,6 +117,8 @@ public class OtherStocksFormController {
     @FXML
     private JFXRadioButton rbFirewood;
 
+    OtherStocksBOImpl otherStocksBO = new OtherStocksBOImpl();
+
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.ACCOUNTANT_DASHBOARD, pane);
@@ -133,6 +135,7 @@ public class OtherStocksFormController {
     public void dailyCropOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.DAILY_CROP, pane);
     }
+
     public void suppliersOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.TEA_SUPPLIERS, pane);
     }
@@ -214,7 +217,7 @@ public class OtherStocksFormController {
     private void loadStockData(String SearchID) {
         ObservableList<OtherStockItemDTO> list = FXCollections.observableArrayList();
         try {
-            ArrayList<OtherStockItemDTO> otherStockItemDTOData = OtherStockItemDAOImpl.getStockItemsData();
+            ArrayList<OtherStockItemDTO> otherStockItemDTOData = otherStocksBO.getStockItemsData();
             for (OtherStockItemDTO s : otherStockItemDTOData) {
                 if (s.getType().contains(SearchID) || s.getSupplierName().contains(SearchID) || s.getDate().toString().contains(SearchID)) {
                     OtherStockItemDTO oti = new OtherStockItemDTO(s.getDate(), s.getStockID(), s.getSupplierID(), s.getSupplierName(), s.getType(), s.getQty(), s.getPrice());
@@ -230,7 +233,7 @@ public class OtherStocksFormController {
     private void loadStockData2(String type) {
         ObservableList<OtherStockItemDTO> list = FXCollections.observableArrayList();
         try {
-            ArrayList<OtherStockItemDTO> otherStockItemDTOData = OtherStockItemDAOImpl.getStockItemsData();
+            ArrayList<OtherStockItemDTO> otherStockItemDTOData = otherStocksBO.getStockItemsData();
             for (OtherStockItemDTO s : otherStockItemDTOData) {
                 if (s.getType().equals(type)) {
                     OtherStockItemDTO oti = new OtherStockItemDTO(s.getDate(), s.getStockID(), s.getSupplierID(), s.getSupplierName(), s.getType(), s.getQty(), s.getPrice());
@@ -273,7 +276,7 @@ public class OtherStocksFormController {
         btnSave.setText("Save");
         btnSearchID.setDisable(false);
 
-        String nextID = generateNextStockItemID(OtherStockItemDAOImpl.getCurrentStockID());
+        String nextID = generateNextStockItemID(otherStocksBO.getCurrentStockID());
         txtStockID.setText(nextID);
         txtSupName.requestFocus();
     }
@@ -284,8 +287,8 @@ public class OtherStocksFormController {
     public void btnSearchIDOnAction(ActionEvent actionEvent) {
         String Sup_id = txtSupID.getText();
         try {
-            String supName = OtherStockItemDAOImpl.getSupplierName(Sup_id);
-            String supType = OtherStockItemDAOImpl.getSupplierType(Sup_id);
+            String supName = otherStocksBO.getSupplierName(Sup_id);
+            String supType = otherStocksBO.getSupplierType(Sup_id);
             if (!(supName.equals("Not found") || supType.equals("Not found"))) {
                 txtSupName.setText(supName);
                 txtSupType.setText(supType);
@@ -316,7 +319,7 @@ public class OtherStocksFormController {
                     double price = Double.parseDouble(txtPrice.getText());
                     if (supplierFound) {
                         OtherStockItemDTO otherStockItemDTO = new OtherStockItemDTO(date, stockID, supID, sup_Name, type, qty, price);
-                        boolean isInserted = OtherStockItemDAOImpl.insertNewStockItemTransaction(otherStockItemDTO);
+                        boolean isInserted = otherStocksBO.insertNewStockItemTransaction(otherStockItemDTO);
                         if (isInserted) {
                             new Alert(Alert.AlertType.CONFIRMATION, "Added !").show();
                             btnNewOnAction(actionEvent);
@@ -344,7 +347,7 @@ public class OtherStocksFormController {
 
                     OtherStockItemDTO otherStockItemDTO = new OtherStockItemDTO(date, stockID, supID, sup_Name, type, qty, price);
 
-                    boolean isUpdated = OtherStockItemDAOImpl.updateStockItem(otherStockItemDTO);
+                    boolean isUpdated = otherStocksBO.updateStockItem(otherStockItemDTO);
                     if (isUpdated) {
                         new Alert(Alert.AlertType.CONFIRMATION, "Updated !").show();
                     } else {
@@ -382,7 +385,7 @@ public class OtherStocksFormController {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Deleted Selected ?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.YES) {
-            Boolean isDeleted = OtherStockItemDAOImpl.deleteStockTransactions(stockID);
+            Boolean isDeleted = otherStocksBO.deleteStockTransactions(stockID);
             if (isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
                 loadStockData("");
