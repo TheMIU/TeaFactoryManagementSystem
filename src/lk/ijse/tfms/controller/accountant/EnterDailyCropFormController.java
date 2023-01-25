@@ -91,6 +91,7 @@ public class EnterDailyCropFormController {
         dateLbl.setText(LocalDate.now()+" Collected");
         lblKg.setText(dailyCropBO.getTotalKg(LocalDate.now())+" kg");
         txtDate.setText(LocalDate.now().toString());
+        txtDate2.setText(LocalDate.now().toString());
         colSupID.setCellValueFactory(new PropertyValueFactory<>("supID"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colNetWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));

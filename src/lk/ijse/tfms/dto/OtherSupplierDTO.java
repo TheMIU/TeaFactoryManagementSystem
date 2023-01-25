@@ -10,7 +10,7 @@ public class OtherSupplierDTO {
     public OtherSupplierDTO() {
     }
 
-    public OtherSupplierDTO(String supID, String sup_Type, String name, String ID, String contact) {
+    public OtherSupplierDTO(String supID, String sup_Type, String ID, String name, String contact) {
         SupID = supID;
         Sup_Type = sup_Type;
         this.ID = ID;

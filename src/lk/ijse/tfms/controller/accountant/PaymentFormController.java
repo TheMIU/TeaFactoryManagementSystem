@@ -172,7 +172,6 @@ public class PaymentFormController {
         btnSave.setDisable(true);
         btnEdit.setDisable(true);
         btnSearch.setDisable(true);
-
         txtPaymentID.setEditable(false);
 
         tblPayment.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

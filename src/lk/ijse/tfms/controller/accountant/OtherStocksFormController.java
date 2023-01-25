@@ -19,6 +19,7 @@ import lk.ijse.tfms.util.Routes;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -279,6 +280,7 @@ public class OtherStocksFormController {
         String nextID = generateNextStockItemID(otherStocksBO.getCurrentStockID());
         txtStockID.setText(nextID);
         txtSupName.requestFocus();
+        txtDate.setText(LocalDate.now().toString());
     }
 
     boolean supplierFound = false;

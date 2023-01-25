@@ -215,8 +215,10 @@ public class OtherSuppliersFormController {
 
                     try {
                         OtherSupplierDTO otherSupplierDTO = new OtherSupplierDTO(supID, type, id, name, mobileNo);
-                       // System.out.println(otherSupplier);
+
+                        //System.out.println(otherSupplierDTO);
                         boolean isUpdated = otherSupplierBO.updateSupplier(otherSupplierDTO, supID);
+
                         if (isUpdated) {
                             cmbType.setDisable(true);
                             new Alert(Alert.AlertType.CONFIRMATION, "Updated !").show();
