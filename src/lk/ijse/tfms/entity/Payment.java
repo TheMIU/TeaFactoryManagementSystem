@@ -1,10 +1,8 @@
 package lk.ijse.tfms.entity;
 
-import java.time.LocalDate;
-
 public class Payment {
     private String payment_ID;
-    private LocalDate date;
+    private String date;
     private String reason;
     private double amount;
     private String method;
@@ -16,7 +14,7 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(String payment_ID, LocalDate date, String reason, double amount, String method, String type, String buyer_ID, String empID, String supplier_ID) {
+    public Payment(String payment_ID, String date, String reason, double amount, String method, String type, String buyer_ID, String empID, String supplier_ID) {
         this.payment_ID = payment_ID;
         this.date = date;
         this.reason = reason;
@@ -36,11 +34,11 @@ public class Payment {
         this.payment_ID = payment_ID;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

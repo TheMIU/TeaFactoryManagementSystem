@@ -1,6 +1,6 @@
 package lk.ijse.tfms.dao;
 
-import lk.ijse.tfms.dto.DailyCropDTO;
+import lk.ijse.tfms.entity.DailyCrop;
 import lk.ijse.tfms.util.CrudUtil;
 
 import java.sql.ResultSet;
@@ -21,20 +21,20 @@ public class DailyCropDAOImpl {
         return "no";
     }
 
-    public boolean saveDailyCrop(DailyCropDTO dailyCropDTO) throws SQLException, ClassNotFoundException {
+    public boolean saveDailyCrop(DailyCrop entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into daily_crop values (?,?,?);",
-                dailyCropDTO.getSupID(),
-                dailyCropDTO.getDate(),
-                dailyCropDTO.getWeight()
+                entity.getSuppliers_ID(),
+                entity.getDate(),
+                entity.getNetWeight()
         );
     }
 
-    public ArrayList<DailyCropDTO> getData() throws SQLException, ClassNotFoundException {
-        ArrayList<DailyCropDTO> cropData = new ArrayList<>();
+    public ArrayList<DailyCrop> getData() throws SQLException, ClassNotFoundException {
+        ArrayList<DailyCrop> cropData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("select * from daily_crop");
         while (rs.next()) {
-            cropData.add(new DailyCropDTO(rs.getString("Date"),
+            cropData.add(new DailyCrop(rs.getString("Date"),
                     rs.getString("Suppliers_ID"),
                     rs.getDouble("NetWeight")
                     ));
@@ -47,12 +47,12 @@ public class DailyCropDAOImpl {
         return isDeleted;
     }
 
-    public boolean update(DailyCropDTO dc) throws SQLException, ClassNotFoundException {
+    public boolean update(DailyCrop entity) throws SQLException, ClassNotFoundException {
         Boolean isUpdated = CrudUtil.execute("update daily_crop set  Date = ?, NetWeight = ? where Suppliers_ID = ? && Date = ? ;",
-                dc.getDate(),
-                dc.getWeight(),
-                dc.getSupID(),
-                dc.getDate()
+                entity.getDate(),
+                entity.getNetWeight(),
+                entity.getSuppliers_ID(),
+                entity.getDate()
         );
         return isUpdated;
     }

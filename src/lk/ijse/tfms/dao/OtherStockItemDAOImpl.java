@@ -2,7 +2,7 @@ package lk.ijse.tfms.dao;
 
 import javafx.scene.control.Alert;
 import lk.ijse.tfms.db.DBConnection;
-import lk.ijse.tfms.dto.OtherStockItemDTO;
+import lk.ijse.tfms.entity.CustomEntity;
 import lk.ijse.tfms.util.CrudUtil;
 
 import java.sql.Connection;
@@ -20,8 +20,8 @@ public class OtherStockItemDAOImpl {
         return null;
     }
 
-    public  ArrayList<OtherStockItemDTO> getStockItemsData() throws SQLException, ClassNotFoundException {
-        ArrayList<OtherStockItemDTO> otherStockItemDTOData = new ArrayList<>();
+    public  ArrayList<CustomEntity> getStockItemsData() throws SQLException, ClassNotFoundException {
+        ArrayList<CustomEntity> otherStockItemData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("select other_suppliers_stocks.date,\n" +
                 "       other_suppliers_stocks.Stock_ID,\n" +
@@ -35,7 +35,8 @@ public class OtherStockItemDAOImpl {
                 "         join Other_Stocks O on O.Stock_ID = other_suppliers_stocks.Stock_ID " +
                 " ORDER BY CAST(SUBSTRING(other_suppliers_stocks.Stock_ID, 2) AS UNSIGNED);");
         while (rs.next()) {
-            otherStockItemDTOData.add(new OtherStockItemDTO(rs.getString("date"),
+            otherStockItemData.add(new CustomEntity(
+                    rs.getString("date"),
                     rs.getString("Stock_ID"),
                     rs.getString("Supplier_ID"),
                     rs.getString("Name"),
@@ -43,7 +44,7 @@ public class OtherStockItemDAOImpl {
                     rs.getInt("Qty"),
                     rs.getDouble("Price")));
         }
-        return otherStockItemDTOData;
+        return otherStockItemData;
     }
 
     public Boolean deleteStockTransactions(String stockID) throws SQLException, ClassNotFoundException {
@@ -82,14 +83,7 @@ public class OtherStockItemDAOImpl {
         return "Not found";
     }
 
-    public boolean updateStockItem(OtherStockItemDTO otherStockItemDTO) throws SQLException, ClassNotFoundException {
-        String date = otherStockItemDTO.getDate();
-        String stockID = otherStockItemDTO.getStockID();
-        String supID = otherStockItemDTO.getSupplierID();
-        String type = otherStockItemDTO.getType();
-        int qty = otherStockItemDTO.getQty();
-        double price = otherStockItemDTO.getPrice();
-
+    public boolean updateStockItem(CustomEntity entity) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
 
         connection.setAutoCommit(false);
@@ -98,14 +92,23 @@ public class OtherStockItemDAOImpl {
                 " set Supplier_ID = ?," +
                 "    Stock_ID    = ?," +
                 "    Date        = ?" +
-                " where Stock_ID = ?;", supID, stockID, date,stockID);
+                " where Stock_ID = ?;",
+                entity.getOtherSuppliersStocks_supplier_ID(),
+                entity.getOtherSuppliersStocks_stock_ID(),
+                entity.getOtherSuppliersStocks_date(),
+                entity.getOtherSuppliersStocks_stock_ID());
 
         Boolean isInsertedToOther_suppliers_stocks = CrudUtil.execute("update other_stocks " +
                 " set Stock_ID   = ?," +
                 "    Stock_Type = ?," +
                 "    Qty        = ?," +
                 "    Price      = ?" +
-                " where Stock_ID = ?;", stockID,type, qty, price,stockID);
+                " where Stock_ID = ?;",
+                entity.getOtherSuppliersStocks_stock_ID(),
+                entity.getOther_stock_Type(),
+                entity.getOther_stock_qty(),
+                entity.getOther_stock_price(),
+                entity.getOtherSuppliersStocks_stock_ID());
 
         if (isInsertedToOther_suppliers_stocks && isInsertedToOther_stocks) {
             connection.commit();

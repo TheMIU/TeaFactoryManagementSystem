@@ -6,13 +6,13 @@ import java.util.Date;
 
 public class DailyCrop {
     private String suppliers_ID;
-    private LocalDate date;
+    private String date;
     private double netWeight;
 
     public DailyCrop() {
     }
 
-    public DailyCrop(String suppliers_ID, LocalDate date, double netWeight) {
+    public DailyCrop(String suppliers_ID, String date, double netWeight) {
         this.suppliers_ID = suppliers_ID;
         this.date = date;
         this.netWeight = netWeight;
@@ -26,11 +26,11 @@ public class DailyCrop {
         this.suppliers_ID = suppliers_ID;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -1,6 +1,6 @@
 package lk.ijse.tfms.dao;
 
-import lk.ijse.tfms.dto.PaymentDTO;
+import lk.ijse.tfms.entity.Payment;
 import lk.ijse.tfms.util.CrudUtil;
 
 import java.sql.ResultSet;
@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 public class PaymentDAOImpl {
 
-    public ArrayList<PaymentDTO> getPaymentData() throws SQLException, ClassNotFoundException {
-        ArrayList<PaymentDTO> paymentDTOData = new ArrayList<>();
+    public ArrayList<Payment> getPaymentData() throws SQLException, ClassNotFoundException {
+        ArrayList<Payment> paymentData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM payment ORDER BY CAST(SUBSTRING(Payment_ID, 2) AS UNSIGNED)");
         while (rs.next()) {
-            paymentDTOData.add(new PaymentDTO(rs.getString("Payment_ID"),
+            paymentData.add(new Payment(rs.getString("Payment_ID"),
                     rs.getString("Date"),
                     rs.getString("reason"),
                     rs.getDouble("Amount"),
@@ -24,15 +24,15 @@ public class PaymentDAOImpl {
                     rs.getString("EmpID"),
                     rs.getString("Supplier_ID")));
         }
-        return paymentDTOData;
+        return paymentData;
     }
 
-    public ArrayList<PaymentDTO> getPaymentDataBuyers() throws SQLException, ClassNotFoundException {
-        ArrayList<PaymentDTO> paymentDTOData = new ArrayList<>();
+    public ArrayList<Payment> getPaymentDataBuyers() throws SQLException, ClassNotFoundException {
+        ArrayList<Payment> paymentData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM payment where Buyer_ID is not null ORDER BY CAST(SUBSTRING(Payment_ID, 2) AS UNSIGNED) ");
         while (rs.next()) {
-            paymentDTOData.add(new PaymentDTO(rs.getString("Payment_ID"),
+            paymentData.add(new Payment(rs.getString("Payment_ID"),
                     rs.getString("Date"),
                     rs.getString("reason"),
                     rs.getDouble("Amount"),
@@ -42,15 +42,15 @@ public class PaymentDAOImpl {
                     rs.getString("EmpID"),
                     rs.getString("Supplier_ID")));
         }
-        return paymentDTOData;
+        return paymentData;
     }
 
-    public ArrayList<PaymentDTO> getPaymentDataSup() throws SQLException, ClassNotFoundException {
-        ArrayList<PaymentDTO> paymentDTOData = new ArrayList<>();
+    public ArrayList<Payment> getPaymentDataSup() throws SQLException, ClassNotFoundException {
+        ArrayList<Payment> paymentData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM payment where Supplier_ID is not null ORDER BY CAST(SUBSTRING(Payment_ID, 2) AS UNSIGNED) ");
         while (rs.next()) {
-            paymentDTOData.add(new PaymentDTO(rs.getString("Payment_ID"),
+            paymentData.add(new Payment(rs.getString("Payment_ID"),
                     rs.getString("Date"),
                     rs.getString("reason"),
                     rs.getDouble("Amount"),
@@ -60,15 +60,15 @@ public class PaymentDAOImpl {
                     rs.getString("EmpID"),
                     rs.getString("Supplier_ID")));
         }
-        return paymentDTOData;
+        return paymentData;
     }
 
-    public ArrayList<PaymentDTO> getPaymentDataEmp() throws SQLException, ClassNotFoundException {
-        ArrayList<PaymentDTO> paymentDTOData = new ArrayList<>();
+    public ArrayList<Payment> getPaymentDataEmp() throws SQLException, ClassNotFoundException {
+        ArrayList<Payment> paymentData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM payment where EmpID is not null ORDER BY CAST(SUBSTRING(Payment_ID, 2) AS UNSIGNED) ");
         while (rs.next()) {
-            paymentDTOData.add(new PaymentDTO(rs.getString("Payment_ID"),
+            paymentData.add(new Payment(rs.getString("Payment_ID"),
                     rs.getString("Date"),
                     rs.getString("reason"),
                     rs.getDouble("Amount"),
@@ -78,7 +78,7 @@ public class PaymentDAOImpl {
                     rs.getString("EmpID"),
                     rs.getString("Supplier_ID")));
         }
-        return paymentDTOData;
+        return paymentData;
     }
 
     public String getCurrentPaymentID() throws SQLException, ClassNotFoundException {
@@ -113,34 +113,34 @@ public class PaymentDAOImpl {
         return "Not found";
     }
 
-    public boolean insertNewPayment(PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
+    public boolean insertNewPayment(Payment entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into payment (Payment_ID, Date, Reason, Amount, Method, Type, Buyer_ID, EmpID, Supplier_ID)\n" +
                         "values (?,?,?,?,?,?,?,?,?);",
-                paymentDTO.getPayment_ID(),
-                paymentDTO.getDate(),
-                paymentDTO.getReason(),
-                paymentDTO.getAmount(),
-                paymentDTO.getMethod(),
-                paymentDTO.getType(),
-                paymentDTO.getBuyerID(),
-                paymentDTO.getEmpID(),
-                paymentDTO.getSupID()
+                entity.getPayment_ID(),
+                entity.getDate(),
+                entity.getReason(),
+                entity.getAmount(),
+                entity.getMethod(),
+                entity.getType(),
+                entity.getBuyer_ID(),
+                entity.getEmpID(),
+                entity.getSupplier_ID()
         );
     }
 
-    public boolean updatePayment(PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
+    public boolean updatePayment(Payment entity) throws SQLException, ClassNotFoundException {
         Boolean isUpdated = CrudUtil.execute("update payment\n" +
                         "set Date = ? , Reason = ? , Amount = ? , Method = ? , Type = ?, Buyer_ID = ?, EmpID = ?, Supplier_ID = ?  \n" +
                         "where Payment_ID = ?;",
-                paymentDTO.getDate(),
-                paymentDTO.getReason(),
-                paymentDTO.getAmount(),
-                paymentDTO.getMethod(),
-                paymentDTO.getType(),
-                paymentDTO.getBuyerID(),
-                paymentDTO.getEmpID(),
-                paymentDTO.getSupID(),
-                paymentDTO.getPayment_ID()
+                entity.getDate(),
+                entity.getReason(),
+                entity.getAmount(),
+                entity.getMethod(),
+                entity.getType(),
+                entity.getBuyer_ID(),
+                entity.getEmpID(),
+                entity.getSupplier_ID(),
+                entity.getPayment_ID()
         );
         return isUpdated;
     }

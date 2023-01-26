@@ -166,6 +166,7 @@ public class OtherStocksFormController {
         txtSupName.setEditable(false);
         txtSupType.setEditable(false);
         txtStockID.setEditable(false);
+        txtSupID.setEditable(false);
 
         tblStock.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -402,7 +403,7 @@ public class OtherStocksFormController {
     //===================================================
 
     private void makeEditableTxtField(boolean b) {
-        txtSupID.setEditable(b);
+        //txtSupID.setEditable(b);
         txtPrice.setEditable(b);
         txtDate.setEditable(b);
         txtQty.setEditable(b);

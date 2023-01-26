@@ -1,6 +1,6 @@
 package lk.ijse.tfms.dao;
 
-import lk.ijse.tfms.dto.EmployeeDTO;
+import lk.ijse.tfms.entity.Employee;
 import lk.ijse.tfms.util.CrudUtil;
 
 import java.sql.ResultSet;
@@ -8,17 +8,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmployeeDAOImpl {
-    public ArrayList<EmployeeDTO> getEmployeeData() throws SQLException, ClassNotFoundException {
-        ArrayList<EmployeeDTO> employeesData = new ArrayList<>();
+    public ArrayList<Employee> getEmployeeData() throws SQLException, ClassNotFoundException {
+        ArrayList<Employee> employeesData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM employee ORDER BY CAST(SUBSTRING(EmpID, 2) AS UNSIGNED)");
         while (rs.next()) {
-            employeesData.add(new EmployeeDTO(rs.getString("EmpID"),
+            employeesData.add(new Employee(rs.getString("EmpID"),
                     rs.getString("Type"),
                     rs.getString("Name"),
+                    rs.getString("ID"),
                     rs.getString("Address"),
-                    rs.getString("Contact"),
-                    rs.getString("id")));
+                    rs.getString("Contact")));
         }
         return employeesData;
     }
@@ -36,26 +36,26 @@ public class EmployeeDAOImpl {
         return isDeleted;
     }
 
-    public boolean updateEmployee(EmployeeDTO employeeDTO, String empID) throws SQLException, ClassNotFoundException {
+    public boolean updateEmployee(Employee entity, String empID) throws SQLException, ClassNotFoundException {
         Boolean isUpdated = CrudUtil.execute("update employee set Type = ?, Name = ?, ID = ?,Address = ?, Contact = ? where EmpID = ?;",
-                employeeDTO.getType(),
-                employeeDTO.getName(),
-                employeeDTO.getId(),
-                employeeDTO.getAddress(),
-                employeeDTO.getContact(),
+                entity.getType(),
+                entity.getName(),
+                entity.getId(),
+                entity.getAddress(),
+                entity.getContact(),
                 empID
         );
         return isUpdated;
     }
 
-    public boolean insertNewEmployee(EmployeeDTO employeeDTO) throws SQLException, ClassNotFoundException {
+    public boolean insertNewEmployee(Employee entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into employee values (?,?,?,?,?,?);",
-                employeeDTO.getEmpID(),
-                employeeDTO.getType(),
-                employeeDTO.getName(),
-                employeeDTO.getId(),
-                employeeDTO.getAddress(),
-                employeeDTO.getContact()
+                entity.getEmpID(),
+                entity.getType(),
+                entity.getName(),
+                entity.getId(),
+                entity.getAddress(),
+                entity.getContact()
         );
     }
 }

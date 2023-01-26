@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 import lk.ijse.tfms.dao.OtherStockItemDAOImpl;
 import lk.ijse.tfms.db.DBConnection;
 import lk.ijse.tfms.dto.OtherStockItemDTO;
+import lk.ijse.tfms.entity.CustomEntity;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,7 +14,22 @@ public class OtherStocksBOImpl {
     OtherStockItemDAOImpl otherStockItemDAO = new OtherStockItemDAOImpl();
 
     public ArrayList<OtherStockItemDTO> getStockItemsData() throws SQLException, ClassNotFoundException {
-        return otherStockItemDAO.getStockItemsData();
+        ArrayList<CustomEntity> stockItemsData = otherStockItemDAO.getStockItemsData();
+        ArrayList<OtherStockItemDTO> otherStockItemDTOS = new ArrayList<>();
+
+        for (CustomEntity c : stockItemsData){
+            //String date, String stockID, String supplierID, String supplierName, String type, int qty, double price
+            otherStockItemDTOS.add(new OtherStockItemDTO(
+                    c.getOtherSuppliersStocks_date(),
+                    c.getOther_stock_ID(),
+                    c.getSuppliers_ID(),
+                    c.getOther_supplier_name(),
+                    c.getOther_supplier_Type(),
+                    c.getOther_stock_qty(),
+                    c.getOther_stock_price()));
+        }
+
+        return otherStockItemDTOS;
     }
 
     public String getCurrentStockID() throws SQLException, ClassNotFoundException {
@@ -56,8 +72,8 @@ public class OtherStocksBOImpl {
         }
     }
 
-    public boolean updateStockItem(OtherStockItemDTO otherStockItemDTO) throws SQLException, ClassNotFoundException {
-        return otherStockItemDAO.updateStockItem(otherStockItemDTO);
+    public boolean updateStockItem(OtherStockItemDTO dto) throws SQLException, ClassNotFoundException {
+        return otherStockItemDAO.updateStockItem(new CustomEntity(dto.getSupplierID(),dto.getStockID(),dto.getDate(),dto.getType(),dto.getQty(),dto.getPrice()));
     }
 
     public Boolean deleteStockTransactions(String stockID) throws SQLException, ClassNotFoundException {

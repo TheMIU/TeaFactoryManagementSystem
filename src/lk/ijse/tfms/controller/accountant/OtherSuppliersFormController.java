@@ -193,7 +193,7 @@ public class OtherSuppliersFormController {
 
                     try {
                         OtherSupplierDTO otherSupplierDTO = new OtherSupplierDTO(supID, type, id, name, mobileNo);
-                      //  System.out.println(otherSupplier);
+
                         boolean isInserted = otherSupplierBO.insertNewSupplier(otherSupplierDTO);
                         if (isInserted) {
                             new Alert(Alert.AlertType.CONFIRMATION, "Added !").show();
@@ -216,7 +216,6 @@ public class OtherSuppliersFormController {
                     try {
                         OtherSupplierDTO otherSupplierDTO = new OtherSupplierDTO(supID, type, id, name, mobileNo);
 
-                        //System.out.println(otherSupplierDTO);
                         boolean isUpdated = otherSupplierBO.updateSupplier(otherSupplierDTO, supID);
 
                         if (isUpdated) {

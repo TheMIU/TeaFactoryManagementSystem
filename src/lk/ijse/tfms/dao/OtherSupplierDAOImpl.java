@@ -1,24 +1,24 @@
 package lk.ijse.tfms.dao;
 
-import lk.ijse.tfms.dto.OtherSupplierDTO;
+import lk.ijse.tfms.entity.OtherSuppliers;
 import lk.ijse.tfms.util.CrudUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OtherSupplierDAOImpl {
-    public ArrayList<OtherSupplierDTO> getSupplierData() throws SQLException, ClassNotFoundException {
-        ArrayList<OtherSupplierDTO> otherSupplierDTOData = new ArrayList<>();
+    public ArrayList<OtherSuppliers> getSupplierData() throws SQLException, ClassNotFoundException {
+        ArrayList<OtherSuppliers> otherSuppliersData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM other_suppliers ORDER BY CAST(SUBSTRING(Supplier_ID, 2) AS UNSIGNED)");
         while (rs.next()) {
-            otherSupplierDTOData.add(new OtherSupplierDTO(rs.getString(1),
+            otherSuppliersData.add(new OtherSuppliers(rs.getString(1),
                     rs.getString(2),
                     rs.getString(3),
                     rs.getString(4),
                     rs.getString(5)));
         }
-        return otherSupplierDTOData;
+        return otherSuppliersData;
     }
 
     public String getCurrentID() throws SQLException, ClassNotFoundException {
@@ -29,26 +29,27 @@ public class OtherSupplierDAOImpl {
         return null;
     }
 
-    public boolean updateSupplier(OtherSupplierDTO otherSupplierDTO, String supID) throws SQLException, ClassNotFoundException {
+    public boolean updateSupplier(OtherSuppliers entity, String supID) throws SQLException, ClassNotFoundException {
+        //String supID, String sup_Type, String ID, String name, String contact
         Boolean isUpdated = CrudUtil.execute("update other_suppliers set Supplier_ID = ?, Supplier_Type = ?, ID = ?, Name = ?,Contact = ? " +
                         "where Supplier_ID = ?;",
-                otherSupplierDTO.getSupID(),
-                otherSupplierDTO.getSup_Type(),
-                otherSupplierDTO.getID(),
-                otherSupplierDTO.getName(),
-                otherSupplierDTO.getContact(),
+                entity.getSupplier_ID(),
+                entity.getSupplier_Type(),
+                entity.getId(),
+                entity.getName(),
+                entity.getContact(),
                 supID
         );
         return isUpdated;
     }
 
-    public boolean insertNewSupplier(OtherSupplierDTO otherSupplierDTO) throws SQLException, ClassNotFoundException {
+    public boolean insertNewSupplier(OtherSuppliers entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into other_suppliers values (?,?,?,?,?);",
-                otherSupplierDTO.getSupID(),
-                otherSupplierDTO.getSup_Type(),
-                otherSupplierDTO.getID(),
-                otherSupplierDTO.getName(),
-                otherSupplierDTO.getContact()
+                entity.getSupplier_ID(),
+                entity.getSupplier_Type(),
+                entity.getName(),
+                entity.getId(),
+                entity.getContact()
         );
     }
 

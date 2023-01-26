@@ -1,6 +1,6 @@
 package lk.ijse.tfms.dao;
 
-import lk.ijse.tfms.dto.TeaStockItemDTO;
+import lk.ijse.tfms.entity.TeaStock;
 import lk.ijse.tfms.util.CrudUtil;
 
 import java.sql.ResultSet;
@@ -9,19 +9,19 @@ import java.util.ArrayList;
 
 public class TeaStockItemDAOImpl {
 
-    public ArrayList<TeaStockItemDTO> getStockItemsData() throws SQLException, ClassNotFoundException {
-        ArrayList<TeaStockItemDTO> teaStockItemDTOData = new ArrayList<>();
+    public ArrayList<TeaStock> getStockItemsData() throws SQLException, ClassNotFoundException {
+        ArrayList<TeaStock> teaStockData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("select * from tea_stock");
         while (rs.next()) {
-            teaStockItemDTOData.add(new TeaStockItemDTO(rs.getString("Stock_ID"),
+            teaStockData.add(new TeaStock(rs.getString("Stock_ID"),
                     rs.getString("Type"),
                     rs.getString("Input_Date"),
                     rs.getDouble("One_bag_Weight"),
                     rs.getInt("Qty"),
                     rs.getInt("AvailableQty")));
         }
-        return teaStockItemDTOData;
+        return teaStockData;
     }
 
     public String getCurrentStockID() throws SQLException, ClassNotFoundException {
@@ -37,26 +37,26 @@ public class TeaStockItemDAOImpl {
         return isDeleted;
     }
 
-    public boolean insertNewStockItem(TeaStockItemDTO teaStockItemDTO) throws SQLException, ClassNotFoundException {
+    public boolean insertNewStockItem(TeaStock entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into tea_stock (Stock_ID, Type, Input_Date, One_bag_Weight, Qty,AvailableQty) values (?,?,?,?,?,?);",
-                teaStockItemDTO.getStockID(),
-                teaStockItemDTO.getType(),
-                teaStockItemDTO.getDate(),
-                teaStockItemDTO.getWeight(),
-                teaStockItemDTO.getQty(),
-                teaStockItemDTO.getQty()
+                entity.getStock_ID(),
+                entity.getType(),
+                entity.getInput_Date(),
+                entity.getOne_bag_Weight(),
+                entity.getQty(),
+                entity.getQty()
         );
     }
 
-    public boolean updateStockItem(TeaStockItemDTO teaStockItemDTO) throws SQLException, ClassNotFoundException {
+    public boolean updateStockItem(TeaStock entity) throws SQLException, ClassNotFoundException {
         Boolean isUpdated = CrudUtil.execute("update tea_stock set Stock_ID = ?, Type = ?, Input_Date = ?, One_bag_Weight = ?,Qty = ? " +
                         "where Stock_ID = ?;",
-                teaStockItemDTO.getStockID(),
-                teaStockItemDTO.getType(),
-                teaStockItemDTO.getDate(),
-                teaStockItemDTO.getWeight(),
-                teaStockItemDTO.getQty(),
-                teaStockItemDTO.getStockID()
+                entity.getStock_ID(),
+                entity.getType(),
+                entity.getInput_Date(),
+                entity.getOne_bag_Weight(),
+                entity.getQty(),
+                entity.getStock_ID()
         );
         return isUpdated;
     }

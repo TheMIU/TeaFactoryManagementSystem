@@ -1,9 +1,9 @@
 package lk.ijse.tfms.entity;
 
-import java.time.LocalDate;
-
 public class TeaStock {
-    private LocalDate input_Date;
+    private String stock_ID;
+    private String type;
+    private String input_Date;
     private double one_bag_Weight;
     private int qty;
     private int availableQty;
@@ -11,18 +11,36 @@ public class TeaStock {
     public TeaStock() {
     }
 
-    public TeaStock(LocalDate input_Date, double one_bag_Weight, int qty, int availableQty) {
+    public TeaStock(String stock_ID, String type, String input_Date, double one_bag_Weight, int qty, int availableQty) {
+        this.stock_ID = stock_ID;
+        this.type = type;
         this.input_Date = input_Date;
         this.one_bag_Weight = one_bag_Weight;
         this.qty = qty;
         this.availableQty = availableQty;
     }
 
-    public LocalDate getInput_Date() {
+    public String getStock_ID() {
+        return stock_ID;
+    }
+
+    public void setStock_ID(String stock_ID) {
+        this.stock_ID = stock_ID;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getInput_Date() {
         return input_Date;
     }
 
-    public void setInput_Date(LocalDate input_Date) {
+    public void setInput_Date(String input_Date) {
         this.input_Date = input_Date;
     }
 
@@ -53,7 +71,9 @@ public class TeaStock {
     @Override
     public String toString() {
         return "TeaStock{" +
-                "input_Date=" + input_Date +
+                "stock_ID='" + stock_ID + '\'' +
+                ", type='" + type + '\'' +
+                ", input_Date=" + input_Date +
                 ", one_bag_Weight=" + one_bag_Weight +
                 ", qty=" + qty +
                 ", availableQty=" + availableQty +
