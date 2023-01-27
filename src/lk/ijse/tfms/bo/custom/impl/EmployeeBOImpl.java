@@ -1,6 +1,7 @@
 package lk.ijse.tfms.bo.custom.impl;
 
 import lk.ijse.tfms.bo.custom.EmployeeBO;
+import lk.ijse.tfms.dao.FactoryDAO;
 import lk.ijse.tfms.dao.custom.EmployeeDAO;
 import lk.ijse.tfms.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.tfms.dto.EmployeeDTO;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmployeeBOImpl implements EmployeeBO {
-    EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+    EmployeeDAO employeeDAO = (EmployeeDAO) FactoryDAO.getFactoryDAO().getDAO(FactoryDAO.Types.EMPLOYEE);
 
     @Override
     public ArrayList<EmployeeDTO> getEmployeeData() throws SQLException, ClassNotFoundException {

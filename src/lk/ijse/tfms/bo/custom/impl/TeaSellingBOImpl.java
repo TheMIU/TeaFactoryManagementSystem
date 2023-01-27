@@ -1,6 +1,7 @@
 package lk.ijse.tfms.bo.custom.impl;
 
 import lk.ijse.tfms.bo.custom.TeaSellingBO;
+import lk.ijse.tfms.dao.FactoryDAO;
 import lk.ijse.tfms.dao.custom.PaymentDAO;
 import lk.ijse.tfms.dao.custom.impl.PaymentDAOImpl;
 import lk.ijse.tfms.dao.custom.TeaStockItemDAO;
@@ -13,8 +14,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TeaSellingBOImpl implements TeaSellingBO {
-    PaymentDAO paymentDAO = new PaymentDAOImpl();
-    TeaStockItemDAO teaStockItemDAO = new TeaStockItemDAOImpl();
+    PaymentDAO paymentDAO = (PaymentDAO) FactoryDAO.getFactoryDAO().getDAO(FactoryDAO.Types.PAYMENT);
+    TeaStockItemDAO teaStockItemDAO = (TeaStockItemDAO) FactoryDAO.getFactoryDAO().getDAO(FactoryDAO.Types.TEA_STOCK);
 
     @Override
     public boolean transaction(PaymentDTO dto, String stockID, int qtyP, int qtyOP, int qtyFOP, int qtyGFOP, int qtyTGFOP, int qtyFTGFOP, int qtyBOP, int qtyFBOP) throws SQLException, ClassNotFoundException {

@@ -1,6 +1,7 @@
 package lk.ijse.tfms.bo.custom.impl;
 
 import lk.ijse.tfms.bo.custom.DailyCropBO;
+import lk.ijse.tfms.dao.FactoryDAO;
 import lk.ijse.tfms.dao.custom.DailyCropDAO;
 import lk.ijse.tfms.dao.custom.impl.DailyCropDAOImpl;
 import lk.ijse.tfms.dto.DailyCropDTO;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DailyCropBOImpl implements DailyCropBO {
-    DailyCropDAO dailyCropDAO = new DailyCropDAOImpl();
+    DailyCropDAO dailyCropDAO = (DailyCropDAO) FactoryDAO.getFactoryDAO().getDAO(FactoryDAO.Types.DAILY_CROP);
 
     @Override
     public String getTotalKg(LocalDate now) throws SQLException, ClassNotFoundException {

@@ -2,6 +2,7 @@ package lk.ijse.tfms.bo.custom.impl;
 
 import javafx.scene.control.Alert;
 import lk.ijse.tfms.bo.custom.OtherStocksBO;
+import lk.ijse.tfms.dao.FactoryDAO;
 import lk.ijse.tfms.dao.custom.OtherStockItemDAO;
 import lk.ijse.tfms.dao.custom.impl.OtherStockItemDAOImpl;
 import lk.ijse.tfms.db.DBConnection;
@@ -15,7 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OtherStocksBOImpl implements OtherStocksBO {
-    OtherStockItemDAO otherStockItemDAO = new OtherStockItemDAOImpl();
+    OtherStockItemDAO otherStockItemDAO = (OtherStockItemDAO) FactoryDAO.getFactoryDAO().getDAO(FactoryDAO.Types.OTHER_STOCKS);
 
     @Override
     public ArrayList<OtherStockItemDTO> getStockItemsData() throws SQLException, ClassNotFoundException {

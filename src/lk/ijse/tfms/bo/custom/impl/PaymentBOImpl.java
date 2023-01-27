@@ -1,6 +1,7 @@
 package lk.ijse.tfms.bo.custom.impl;
 
 import lk.ijse.tfms.bo.custom.PaymentBO;
+import lk.ijse.tfms.dao.FactoryDAO;
 import lk.ijse.tfms.dao.custom.PaymentDAO;
 import lk.ijse.tfms.dao.custom.impl.PaymentDAOImpl;
 import lk.ijse.tfms.dto.PaymentDTO;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PaymentBOImpl implements PaymentBO {
-    PaymentDAO paymentDAO = new PaymentDAOImpl();
+    PaymentDAO paymentDAO = (PaymentDAO) FactoryDAO.getFactoryDAO().getDAO(FactoryDAO.Types.PAYMENT);
 
     @Override
     public ArrayList<PaymentDTO> getPaymentData() throws SQLException, ClassNotFoundException {

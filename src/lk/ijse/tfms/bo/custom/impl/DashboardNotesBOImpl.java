@@ -1,6 +1,7 @@
 package lk.ijse.tfms.bo.custom.impl;
 
 import lk.ijse.tfms.bo.custom.DashboardNotesBO;
+import lk.ijse.tfms.dao.FactoryDAO;
 import lk.ijse.tfms.dao.custom.DailyCropDAO;
 import lk.ijse.tfms.dao.custom.impl.DailyCropDAOImpl;
 import lk.ijse.tfms.dao.custom.DashboardNotesDAO;
@@ -11,8 +12,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DashboardNotesBOImpl implements DashboardNotesBO {
-    DashboardNotesDAO dashboardNotesDAO = new DashboardNotesDAOImpl();
-    DailyCropDAO dailyCropDAO = new DailyCropDAOImpl();
+    DashboardNotesDAO dashboardNotesDAO = (DashboardNotesDAO) FactoryDAO.getFactoryDAO().getDAO(FactoryDAO.Types.DASHBOARD_NOTES);
+    DailyCropDAO dailyCropDAO = (DailyCropDAO) FactoryDAO.getFactoryDAO().getDAO(FactoryDAO.Types.DAILY_CROP);
 
     @Override
     public String getNote(int id) throws SQLException, ClassNotFoundException {

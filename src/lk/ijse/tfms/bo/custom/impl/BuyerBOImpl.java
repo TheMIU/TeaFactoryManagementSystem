@@ -1,6 +1,7 @@
 package lk.ijse.tfms.bo.custom.impl;
 
 import lk.ijse.tfms.bo.custom.BuyerBO;
+import lk.ijse.tfms.dao.FactoryDAO;
 import lk.ijse.tfms.dao.custom.BuyerDAO;
 import lk.ijse.tfms.dao.custom.impl.BuyerDAOImpl;
 import lk.ijse.tfms.dto.BuyerDTO;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BuyerBOImpl implements BuyerBO {
-    BuyerDAO buyerDAO = new BuyerDAOImpl();
+    BuyerDAO buyerDAO = (BuyerDAO) FactoryDAO.getFactoryDAO().getDAO(FactoryDAO.Types.BUYER);
 
     @Override
     public ArrayList<BuyerDTO> getBuyerData() throws SQLException, ClassNotFoundException {

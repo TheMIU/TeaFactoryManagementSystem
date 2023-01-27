@@ -1,6 +1,7 @@
 package lk.ijse.tfms.bo.custom.impl;
 
 import lk.ijse.tfms.bo.custom.OtherSupplierBO;
+import lk.ijse.tfms.dao.FactoryDAO;
 import lk.ijse.tfms.dao.custom.OtherSupplierDAO;
 import lk.ijse.tfms.dao.custom.impl.OtherSupplierDAOImpl;
 import lk.ijse.tfms.dto.OtherSupplierDTO;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OtherSupplierBOImpl implements OtherSupplierBO {
-    OtherSupplierDAO otherSupplierDAO = new OtherSupplierDAOImpl();
+    OtherSupplierDAO otherSupplierDAO = (OtherSupplierDAO) FactoryDAO.getFactoryDAO().getDAO(FactoryDAO.Types.OTHER_SUPPLIERS);
 
     @Override
     public ArrayList<OtherSupplierDTO> getSupplierData() throws SQLException, ClassNotFoundException {
