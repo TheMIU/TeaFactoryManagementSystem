@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.tfms.bo.BOFactory;
 import lk.ijse.tfms.bo.custom.PaymentBO;
 import lk.ijse.tfms.bo.custom.impl.PaymentBOImpl;
 import lk.ijse.tfms.db.DBConnection;
@@ -27,7 +28,7 @@ public class AdminDashBoardFormController {
     public Label lblExpense;
     public Label lblIncome;
 
-    PaymentBO paymentBO= new PaymentBOImpl();
+    PaymentBO paymentBO= (PaymentBO) BOFactory.getBoFactory().getBO(BOFactory.Type.PAYMENT);
 
     public void manageUsersOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.ADMIN_MANAGE_USERS, pane);

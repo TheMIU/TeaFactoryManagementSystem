@@ -1,11 +1,12 @@
 package lk.ijse.tfms.bo.custom;
 
+import lk.ijse.tfms.bo.SuperBO;
 import lk.ijse.tfms.dto.PaymentDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface PaymentBO {
+public interface PaymentBO extends SuperBO {
     public ArrayList<PaymentDTO> getPaymentData() throws SQLException, ClassNotFoundException;
 
     public ArrayList<PaymentDTO> getPaymentDataSup() throws SQLException, ClassNotFoundException;

@@ -1,11 +1,12 @@
 package lk.ijse.tfms.bo.custom;
 
+import lk.ijse.tfms.bo.SuperBO;
 import lk.ijse.tfms.dto.TeaStockItemDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface TeaStockBO {
+public interface TeaStockBO extends SuperBO {
     public ArrayList<TeaStockItemDTO> getStockItemsData() throws SQLException, ClassNotFoundException;
 
     public String getCurrentStockID() throws SQLException, ClassNotFoundException;

@@ -13,6 +13,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.tfms.bo.BOFactory;
+import lk.ijse.tfms.bo.custom.DashboardNotesBO;
 import lk.ijse.tfms.bo.custom.EmployeeBO;
 import lk.ijse.tfms.bo.custom.impl.EmployeeBOImpl;
 import lk.ijse.tfms.dto.EmployeeDTO;
@@ -74,7 +76,7 @@ public class EmployeeFormController {
     @FXML
     private JFXButton btnteaCollecting;
 
-    EmployeeBO employeeBO = new EmployeeBOImpl();
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBoFactory().getBO(BOFactory.Type.EMPLOYEE);
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {

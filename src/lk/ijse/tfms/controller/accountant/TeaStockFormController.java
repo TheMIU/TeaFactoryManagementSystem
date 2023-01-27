@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import lk.ijse.tfms.bo.BOFactory;
 import lk.ijse.tfms.bo.custom.TeaStockBO;
 import lk.ijse.tfms.bo.custom.impl.TeaStockBOImpl;
 import lk.ijse.tfms.dto.TeaStockItemDTO;
@@ -102,7 +103,7 @@ public class TeaStockFormController {
     @FXML
     private JFXTextField txtSearch;
 
-    TeaStockBO teaStockBO = new TeaStockBOImpl();
+    TeaStockBO teaStockBO = (TeaStockBO) BOFactory.getBoFactory().getBO(BOFactory.Type.TEA_STOCK);
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {

@@ -1,11 +1,12 @@
 package lk.ijse.tfms.bo.custom;
 
+import lk.ijse.tfms.bo.SuperBO;
 import lk.ijse.tfms.dto.TeaSupplierDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface TeaSupplierBO {
+public interface TeaSupplierBO extends SuperBO {
     public ArrayList<TeaSupplierDTO> getSupplierData() throws SQLException, ClassNotFoundException;
 
     public String getCurrentID() throws SQLException, ClassNotFoundException;

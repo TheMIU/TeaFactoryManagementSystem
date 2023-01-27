@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.tfms.bo.BOFactory;
 import lk.ijse.tfms.bo.custom.PaymentBO;
 import lk.ijse.tfms.bo.custom.impl.PaymentBOImpl;
 import lk.ijse.tfms.db.DBConnection;
@@ -132,7 +133,7 @@ public class PaymentFormController {
     @FXML
     private JFXButton btnSave1;
 
-    PaymentBO paymentBO = new PaymentBOImpl();
+    PaymentBO paymentBO = (PaymentBO) BOFactory.getBoFactory().getBO(BOFactory.Type.PAYMENT);
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {

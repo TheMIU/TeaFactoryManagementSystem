@@ -1,12 +1,13 @@
 package lk.ijse.tfms.bo.custom;
 
+import lk.ijse.tfms.bo.SuperBO;
 import lk.ijse.tfms.dto.DailyCropDTO;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public interface DailyCropBO {
+public interface DailyCropBO extends SuperBO {
     public String getTotalKg(LocalDate now) throws SQLException, ClassNotFoundException;
     public String getSupplierName(String supID);
     public ArrayList<DailyCropDTO> getData() throws SQLException, ClassNotFoundException;
