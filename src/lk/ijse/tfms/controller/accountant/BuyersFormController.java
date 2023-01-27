@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.tfms.bo.BuyerBO;
 import lk.ijse.tfms.bo.BuyerBOImpl;
 import lk.ijse.tfms.dto.BuyerDTO;
 import lk.ijse.tfms.util.Navigation;
@@ -41,7 +42,7 @@ public class BuyersFormController {
     public TableColumn<BuyerDTO, String> colAddress;
     public TableColumn<BuyerDTO, String> colContact;
 
-    BuyerBOImpl buyerBO = new BuyerBOImpl();
+    BuyerBO buyerBO = new BuyerBOImpl();
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {
