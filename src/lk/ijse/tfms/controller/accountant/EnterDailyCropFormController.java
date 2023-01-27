@@ -9,9 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.tfms.bo.DailyCropBOImpl;
+import lk.ijse.tfms.bo.custom.DailyCropBO;
+import lk.ijse.tfms.bo.custom.impl.DailyCropBOImpl;
 import lk.ijse.tfms.dto.DailyCropDTO;
-import lk.ijse.tfms.dao.DailyCropDAOImpl;
 import lk.ijse.tfms.util.Navigation;
 import lk.ijse.tfms.util.Routes;
 
@@ -62,7 +62,7 @@ public class EnterDailyCropFormController {
     @FXML
     private JFXButton btnManageSuppliers;
 
-    DailyCropBOImpl dailyCropBO = new DailyCropBOImpl();
+    DailyCropBO dailyCropBO = new DailyCropBOImpl();
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {

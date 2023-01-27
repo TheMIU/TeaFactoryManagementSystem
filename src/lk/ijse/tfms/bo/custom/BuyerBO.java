@@ -1,4 +1,4 @@
-package lk.ijse.tfms.bo;
+package lk.ijse.tfms.bo.custom;
 
 import lk.ijse.tfms.dto.BuyerDTO;
 

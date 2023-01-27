@@ -7,8 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import lk.ijse.tfms.bo.PaymentBOImpl;
-import lk.ijse.tfms.bo.TeaSellingBOImpl;
+import lk.ijse.tfms.bo.custom.PaymentBO;
+import lk.ijse.tfms.bo.custom.impl.PaymentBOImpl;
+import lk.ijse.tfms.bo.custom.TeaSellingBO;
+import lk.ijse.tfms.bo.custom.impl.TeaSellingBOImpl;
 import lk.ijse.tfms.dto.PaymentDTO;
 import lk.ijse.tfms.util.CrudUtil;
 import java.sql.ResultSet;
@@ -147,8 +149,8 @@ public class TeaSellingController {
     @FXML
     private JFXButton btnCancel;
 
-    PaymentBOImpl paymentBO = new PaymentBOImpl();
-    TeaSellingBOImpl teaSellingBO = new TeaSellingBOImpl();
+    PaymentBO paymentBO = new PaymentBOImpl();
+    TeaSellingBO teaSellingBO = new TeaSellingBOImpl();
 
 
     public void initialize() {

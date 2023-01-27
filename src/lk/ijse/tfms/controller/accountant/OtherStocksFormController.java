@@ -12,7 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.tfms.bo.OtherStocksBOImpl;
+import lk.ijse.tfms.bo.custom.OtherStocksBO;
+import lk.ijse.tfms.bo.custom.impl.OtherStocksBOImpl;
 import lk.ijse.tfms.dto.OtherStockItemDTO;
 import lk.ijse.tfms.util.Navigation;
 import lk.ijse.tfms.util.Routes;
@@ -118,7 +119,7 @@ public class OtherStocksFormController {
     @FXML
     private JFXRadioButton rbFirewood;
 
-    OtherStocksBOImpl otherStocksBO = new OtherStocksBOImpl();
+    OtherStocksBO otherStocksBO = new OtherStocksBOImpl();
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {

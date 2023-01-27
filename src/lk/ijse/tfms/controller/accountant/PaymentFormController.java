@@ -12,7 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.tfms.bo.PaymentBOImpl;
+import lk.ijse.tfms.bo.custom.PaymentBO;
+import lk.ijse.tfms.bo.custom.impl.PaymentBOImpl;
 import lk.ijse.tfms.db.DBConnection;
 import lk.ijse.tfms.dto.PaymentDTO;
 import lk.ijse.tfms.util.Navigation;
@@ -131,7 +132,7 @@ public class PaymentFormController {
     @FXML
     private JFXButton btnSave1;
 
-    PaymentBOImpl paymentBO = new PaymentBOImpl();
+    PaymentBO paymentBO = new PaymentBOImpl();
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {

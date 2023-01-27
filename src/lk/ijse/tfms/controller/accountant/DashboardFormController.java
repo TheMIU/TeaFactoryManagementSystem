@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.tfms.bo.DashboardNotesBOImpl;
-import lk.ijse.tfms.dao.DailyCropDAOImpl;
+import lk.ijse.tfms.bo.custom.DashboardNotesBO;
+import lk.ijse.tfms.bo.custom.impl.DashboardNotesBOImpl;
 import lk.ijse.tfms.util.Navigation;
 import lk.ijse.tfms.util.Routes;
 
@@ -55,7 +55,7 @@ public class DashboardFormController {
     @FXML
     private JFXButton btnManageSuppliers;
 
-    DashboardNotesBOImpl dashboardNotesBO = new DashboardNotesBOImpl();
+    DashboardNotesBO dashboardNotesBO = new DashboardNotesBOImpl();
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {

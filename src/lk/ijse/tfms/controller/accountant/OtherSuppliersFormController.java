@@ -12,8 +12,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.tfms.bo.OtherSupplierBOImpl;
-import lk.ijse.tfms.dao.OtherSupplierDAOImpl;
+import lk.ijse.tfms.bo.custom.OtherSupplierBO;
+import lk.ijse.tfms.bo.custom.impl.OtherSupplierBOImpl;
 import lk.ijse.tfms.dto.OtherSupplierDTO;
 import lk.ijse.tfms.util.Navigation;
 import lk.ijse.tfms.util.Routes;
@@ -44,7 +44,7 @@ public class OtherSuppliersFormController {
     public TableColumn colID;
     public TableColumn colMobileNo;
 
-    OtherSupplierBOImpl otherSupplierBO = new OtherSupplierBOImpl();
+    OtherSupplierBO otherSupplierBO = new OtherSupplierBOImpl();
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {

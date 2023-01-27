@@ -12,8 +12,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.tfms.bo.TeaSupplierBOImpl;
-import lk.ijse.tfms.dao.TeaSupplierDAOImpl;
+import lk.ijse.tfms.bo.custom.TeaSupplierBO;
+import lk.ijse.tfms.bo.custom.impl.TeaSupplierBOImpl;
 import lk.ijse.tfms.dto.TeaSupplierDTO;
 import lk.ijse.tfms.util.Navigation;
 import lk.ijse.tfms.util.Routes;
@@ -69,7 +69,7 @@ public class TeaSuppliersFormController {
     @FXML
     private JFXButton btnteaCollecting;
 
-    TeaSupplierBOImpl teaSupplierBO = new TeaSupplierBOImpl();
+    TeaSupplierBO teaSupplierBO = new TeaSupplierBOImpl();
 
     //====================Navigation==========================
     public void homeOnAction(ActionEvent actionEvent) throws IOException {

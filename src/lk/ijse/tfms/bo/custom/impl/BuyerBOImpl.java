@@ -1,5 +1,6 @@
-package lk.ijse.tfms.bo;
+package lk.ijse.tfms.bo.custom.impl;
 
+import lk.ijse.tfms.bo.custom.BuyerBO;
 import lk.ijse.tfms.dao.BuyerDAOImpl;
 import lk.ijse.tfms.dto.BuyerDTO;
 import lk.ijse.tfms.entity.Buyers;
@@ -7,7 +8,7 @@ import lk.ijse.tfms.entity.Buyers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class BuyerBOImpl implements BuyerBO{
+public class BuyerBOImpl implements BuyerBO {
     BuyerDAOImpl buyerDAO = new BuyerDAOImpl();
 
     @Override

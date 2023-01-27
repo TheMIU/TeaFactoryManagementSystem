@@ -6,6 +6,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.tfms.bo.custom.PaymentBO;
+import lk.ijse.tfms.bo.custom.impl.PaymentBOImpl;
 import lk.ijse.tfms.db.DBConnection;
 import lk.ijse.tfms.dao.PaymentDAOImpl;
 import lk.ijse.tfms.util.Navigation;
@@ -26,7 +28,7 @@ public class AdminDashBoardFormController {
     public Label lblExpense;
     public Label lblIncome;
 
-    PaymentDAOImpl paymentDAO = new PaymentDAOImpl();
+    PaymentBO paymentBO= new PaymentBOImpl();
 
     public void manageUsersOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.ADMIN_MANAGE_USERS, pane);
@@ -47,8 +49,8 @@ public class AdminDashBoardFormController {
 
     //========================== Beginning ====================
     public void initialize() throws SQLException, ClassNotFoundException {
-        double income = paymentDAO.getSummery("credit");
-        double expence = paymentDAO.getSummery("debit");
+        double income = paymentBO.getSummery("credit");
+        double expence = paymentBO.getSummery("debit");
 
         lblExpense.setText(String.valueOf(expence));
         lblIncome.setText(String.valueOf(income));
