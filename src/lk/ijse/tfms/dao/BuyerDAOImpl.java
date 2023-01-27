@@ -7,9 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class BuyerDAOImpl {
+public class BuyerDAOImpl implements BuyerDAO{
 
-    public ArrayList<Buyers> getBuyerData() throws SQLException, ClassNotFoundException {
+    public ArrayList<Buyers> getData() throws SQLException, ClassNotFoundException {
         ArrayList<Buyers> buyers = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM buyers ORDER BY CAST(SUBSTRING(Buyer_ID, 2) AS UNSIGNED)");
@@ -22,11 +22,11 @@ public class BuyerDAOImpl {
         return buyers;
     }
 
-    public Boolean deleteBuyer(String buyerID) throws SQLException, ClassNotFoundException {
+    public Boolean delete(String buyerID) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("delete from buyers where Buyer_ID = ?",buyerID);
     }
 
-    public  boolean insertNewBuyer(Buyers entity) throws SQLException, ClassNotFoundException {
+    public  boolean add(Buyers entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into buyers values (?,?,?,?);",
                 entity.getBuyer_ID(),
                 entity.getName(),
@@ -35,7 +35,7 @@ public class BuyerDAOImpl {
         );
     }
 
-    public boolean updateBuyer(Buyers entity, String buyerID) throws SQLException, ClassNotFoundException {
+    public boolean update(Buyers entity, String buyerID) throws SQLException, ClassNotFoundException {
         Boolean isUpdated = CrudUtil.execute("update buyers set  Name = ?, Address = ?, Contact = ? where Buyer_ID = ?;",
                 entity.getName(),
                 entity.getAddress(),
@@ -45,11 +45,8 @@ public class BuyerDAOImpl {
         return isUpdated;
     }
 
+    @Override
     public String getCurrentID() throws SQLException, ClassNotFoundException {
-        ResultSet rs = CrudUtil.execute("SELECT * FROM buyers ORDER BY CAST(SUBSTRING(Buyer_ID, 2) AS UNSIGNED) DESC LIMIT 1");
-        while (rs.next()) {
-            return rs.getString(1);
-        }
         return null;
     }
 }
