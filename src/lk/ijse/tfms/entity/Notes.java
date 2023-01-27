@@ -1,13 +1,13 @@
 package lk.ijse.tfms.entity;
 
-public class notes {
+public class Notes {
     private String id;
     private String note;
 
-    public notes() {
+    public Notes() {
     }
 
-    public notes(String id, String note) {
+    public Notes(String id, String note) {
         this.id = id;
         this.note = note;
     }

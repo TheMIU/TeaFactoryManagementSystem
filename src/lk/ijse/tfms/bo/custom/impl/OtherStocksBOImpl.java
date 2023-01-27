@@ -2,21 +2,24 @@ package lk.ijse.tfms.bo.custom.impl;
 
 import javafx.scene.control.Alert;
 import lk.ijse.tfms.bo.custom.OtherStocksBO;
-import lk.ijse.tfms.dao.OtherStockItemDAOImpl;
+import lk.ijse.tfms.dao.custom.OtherStockItemDAO;
+import lk.ijse.tfms.dao.custom.impl.OtherStockItemDAOImpl;
 import lk.ijse.tfms.db.DBConnection;
 import lk.ijse.tfms.dto.OtherStockItemDTO;
 import lk.ijse.tfms.entity.CustomEntity;
+import lk.ijse.tfms.entity.OtherStocks;
+import lk.ijse.tfms.entity.OtherSuppliersStocks;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OtherStocksBOImpl implements OtherStocksBO {
-    OtherStockItemDAOImpl otherStockItemDAO = new OtherStockItemDAOImpl();
+    OtherStockItemDAO otherStockItemDAO = new OtherStockItemDAOImpl();
 
     @Override
     public ArrayList<OtherStockItemDTO> getStockItemsData() throws SQLException, ClassNotFoundException {
-        ArrayList<CustomEntity> stockItemsData = otherStockItemDAO.getStockItemsData();
+        ArrayList<CustomEntity> stockItemsData = otherStockItemDAO.getData();
         ArrayList<OtherStockItemDTO> otherStockItemDTOS = new ArrayList<>();
 
         for (CustomEntity c : stockItemsData) {
@@ -36,7 +39,7 @@ public class OtherStocksBOImpl implements OtherStocksBO {
 
     @Override
     public String getCurrentStockID() throws SQLException, ClassNotFoundException {
-        return otherStockItemDAO.getCurrentStockID();
+        return otherStockItemDAO.getCurrentID();
     }
 
     @Override
@@ -55,16 +58,16 @@ public class OtherStocksBOImpl implements OtherStocksBO {
         Connection connection = DBConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
 
-        boolean isInsertedToOther_suppliers_stocks = otherStockItemDAO.insertInto_OtherSuppliersStocks(
+        boolean isInsertedToOther_suppliers_stocks = otherStockItemDAO.insertInto_OtherSuppliersStocks(new OtherStocks(
                 dto.getStockID(),
                 dto.getType(),
                 dto.getQty(),
-                dto.getPrice());
+                dto.getPrice()));
 
-        boolean isInsertedToOther_stocks = otherStockItemDAO.insertInto_OtherStocks(
+        boolean isInsertedToOther_stocks = otherStockItemDAO.insertInto_OtherStocks(new OtherSuppliersStocks(
                 dto.getSupplierID(),
                 dto.getStockID(),
-                dto.getDate());
+                dto.getDate()));
 
         if (isInsertedToOther_suppliers_stocks && isInsertedToOther_stocks) {
             connection.commit();
@@ -80,11 +83,11 @@ public class OtherStocksBOImpl implements OtherStocksBO {
 
     @Override
     public boolean updateStockItem(OtherStockItemDTO dto) throws SQLException, ClassNotFoundException {
-        return otherStockItemDAO.updateStockItem(new CustomEntity(dto.getSupplierID(), dto.getStockID(), dto.getDate(), dto.getType(), dto.getQty(), dto.getPrice()));
+        return otherStockItemDAO.update(new CustomEntity(dto.getSupplierID(), dto.getStockID(), dto.getDate(), dto.getType(), dto.getQty(), dto.getPrice()));
     }
 
     @Override
     public Boolean deleteStockTransactions(String stockID) throws SQLException, ClassNotFoundException {
-        return otherStockItemDAO.deleteStockTransactions(stockID);
+        return otherStockItemDAO.delete(stockID);
     }
 }

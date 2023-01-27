@@ -237,7 +237,7 @@ public class EmployeeFormController {
 
                     try {
                         EmployeeDTO employeeDTO = new EmployeeDTO(empID, type, name, address, mobileNo, id);
-                        boolean isUpdated = employeeBO.updateEmployee(employeeDTO, empID);
+                        boolean isUpdated = employeeBO.updateEmployee(employeeDTO);
                         if (isUpdated) {
                             new Alert(Alert.AlertType.CONFIRMATION, "Updated !").show();
                         } else {

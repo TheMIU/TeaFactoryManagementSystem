@@ -9,6 +9,6 @@ public interface OtherSupplierBO {
     public ArrayList<OtherSupplierDTO> getSupplierData() throws SQLException, ClassNotFoundException;
     public String getCurrentID() throws SQLException, ClassNotFoundException;
     public boolean insertNewSupplier(OtherSupplierDTO dto) throws SQLException, ClassNotFoundException;
-    public boolean updateSupplier(OtherSupplierDTO dto, String supID) throws SQLException, ClassNotFoundException;
+    public boolean updateSupplier(OtherSupplierDTO dto) throws SQLException, ClassNotFoundException;
     public Boolean deleteSupplier(String supID) throws SQLException, ClassNotFoundException;
 }

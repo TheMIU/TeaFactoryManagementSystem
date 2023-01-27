@@ -12,7 +12,7 @@ public interface TeaSupplierBO {
 
     public boolean insertNewSupplier(TeaSupplierDTO dto) throws SQLException, ClassNotFoundException;
 
-    public boolean updateSupplier(TeaSupplierDTO dto, String supID) throws SQLException, ClassNotFoundException;
+    public boolean updateSupplier(TeaSupplierDTO dto) throws SQLException, ClassNotFoundException;
 
     public Boolean deleteSupplier(String supID) throws SQLException, ClassNotFoundException;
 }

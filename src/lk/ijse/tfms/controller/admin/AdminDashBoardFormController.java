@@ -9,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.tfms.bo.custom.PaymentBO;
 import lk.ijse.tfms.bo.custom.impl.PaymentBOImpl;
 import lk.ijse.tfms.db.DBConnection;
-import lk.ijse.tfms.dao.PaymentDAOImpl;
 import lk.ijse.tfms.util.Navigation;
 import lk.ijse.tfms.util.Routes;
 import net.sf.jasperreports.engine.*;

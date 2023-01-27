@@ -1,7 +1,8 @@
 package lk.ijse.tfms.bo.custom.impl;
 
 import lk.ijse.tfms.bo.custom.TeaSupplierBO;
-import lk.ijse.tfms.dao.TeaSupplierDAOImpl;
+import lk.ijse.tfms.dao.custom.TeaSupplierDAO;
+import lk.ijse.tfms.dao.custom.impl.TeaSupplierDAOImpl;
 import lk.ijse.tfms.dto.TeaSupplierDTO;
 import lk.ijse.tfms.entity.TeaSuppliers;
 
@@ -9,11 +10,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeaSupplierBOImpl implements TeaSupplierBO {
-    TeaSupplierDAOImpl teaSupplierDAO = new TeaSupplierDAOImpl();
+    TeaSupplierDAO teaSupplierDAO = new TeaSupplierDAOImpl();
 
     @Override
     public ArrayList<TeaSupplierDTO> getSupplierData() throws SQLException, ClassNotFoundException {
-        ArrayList<TeaSuppliers> supplierData = teaSupplierDAO.getSupplierData();
+        ArrayList<TeaSuppliers> supplierData = teaSupplierDAO.getData();
         ArrayList<TeaSupplierDTO> teaSupplierDTOS = new ArrayList<>();
 
         for (TeaSuppliers t : supplierData) {
@@ -30,16 +31,16 @@ public class TeaSupplierBOImpl implements TeaSupplierBO {
 
     @Override
     public boolean insertNewSupplier(TeaSupplierDTO dto) throws SQLException, ClassNotFoundException {
-        return teaSupplierDAO.insertNewSupplier(new TeaSuppliers(dto.getSup_id(), dto.getName(), dto.getId(), dto.getAddress(), dto.getMobile_num()));
+        return teaSupplierDAO.add(new TeaSuppliers(dto.getSup_id(), dto.getName(), dto.getId(), dto.getAddress(), dto.getMobile_num()));
     }
 
     @Override
-    public boolean updateSupplier(TeaSupplierDTO dto, String supID) throws SQLException, ClassNotFoundException {
-        return teaSupplierDAO.updateSupplier(new TeaSuppliers(dto.getSup_id(), dto.getName(), dto.getId(), dto.getAddress(), dto.getMobile_num()), supID);
+    public boolean updateSupplier(TeaSupplierDTO dto) throws SQLException, ClassNotFoundException {
+        return teaSupplierDAO.update(new TeaSuppliers(dto.getSup_id(), dto.getName(), dto.getId(), dto.getAddress(), dto.getMobile_num()));
     }
 
     @Override
     public Boolean deleteSupplier(String supID) throws SQLException, ClassNotFoundException {
-        return teaSupplierDAO.deleteSupplier(supID);
+        return teaSupplierDAO.delete(supID);
     }
 }

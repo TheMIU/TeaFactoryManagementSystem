@@ -1,8 +1,8 @@
 package lk.ijse.tfms.bo.custom.impl;
 
 import lk.ijse.tfms.bo.custom.BuyerBO;
-import lk.ijse.tfms.dao.BuyerDAO;
-import lk.ijse.tfms.dao.BuyerDAOImpl;
+import lk.ijse.tfms.dao.custom.BuyerDAO;
+import lk.ijse.tfms.dao.custom.impl.BuyerDAOImpl;
 import lk.ijse.tfms.dto.BuyerDTO;
 import lk.ijse.tfms.entity.Buyers;
 
@@ -34,8 +34,8 @@ public class BuyerBOImpl implements BuyerBO {
     }
 
     @Override
-    public boolean updateBuyer(BuyerDTO buyerDTO, String buyerID) throws SQLException, ClassNotFoundException {
-        return buyerDAO.update(new Buyers(buyerDTO.getBuyer_ID(), buyerDTO.getName(), buyerDTO.getAddress(), buyerDTO.getContact()), buyerID);
+    public boolean updateBuyer(BuyerDTO buyerDTO) throws SQLException, ClassNotFoundException {
+        return buyerDAO.update(new Buyers(buyerDTO.getBuyer_ID(), buyerDTO.getName(), buyerDTO.getAddress(), buyerDTO.getContact()));
     }
 
     @Override

@@ -1,8 +1,11 @@
-package lk.ijse.tfms.dao;
+package lk.ijse.tfms.dao.custom.impl;
 
 import javafx.scene.control.Alert;
+import lk.ijse.tfms.dao.custom.OtherStockItemDAO;
 import lk.ijse.tfms.db.DBConnection;
 import lk.ijse.tfms.entity.CustomEntity;
+import lk.ijse.tfms.entity.OtherStocks;
+import lk.ijse.tfms.entity.OtherSuppliersStocks;
 import lk.ijse.tfms.util.CrudUtil;
 
 import java.sql.Connection;
@@ -10,9 +13,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OtherStockItemDAOImpl {
+public class OtherStockItemDAOImpl implements OtherStockItemDAO {
 
-    public  String getCurrentStockID() throws SQLException, ClassNotFoundException {
+    @Override
+    public String getCurrentID() throws SQLException, ClassNotFoundException {
         ResultSet rs = CrudUtil.execute("SELECT * FROM other_stocks ORDER BY CAST(SUBSTRING(Stock_ID, 2) AS UNSIGNED) DESC LIMIT 1");
         while (rs.next()) {
             return rs.getString(1);
@@ -20,7 +24,8 @@ public class OtherStockItemDAOImpl {
         return null;
     }
 
-    public  ArrayList<CustomEntity> getStockItemsData() throws SQLException, ClassNotFoundException {
+    @Override
+    public ArrayList<CustomEntity> getData() throws SQLException, ClassNotFoundException {
         ArrayList<CustomEntity> otherStockItemData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("select other_suppliers_stocks.date,\n" +
@@ -47,7 +52,8 @@ public class OtherStockItemDAOImpl {
         return otherStockItemData;
     }
 
-    public Boolean deleteStockTransactions(String stockID) throws SQLException, ClassNotFoundException {
+    @Override
+    public Boolean delete(String stockID) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
 
         connection.setAutoCommit(false);
@@ -67,43 +73,34 @@ public class OtherStockItemDAOImpl {
         }
     }
 
-    public String getSupplierName(String sup_id) throws SQLException, ClassNotFoundException {
-        ResultSet rs = CrudUtil.execute("select Name from other_suppliers where Supplier_ID = ?", sup_id);
-        while (rs.next()) {
-            return rs.getString(1);
-        }
-        return "Not found";
+    @Override
+    public boolean add(CustomEntity entity) throws SQLException, ClassNotFoundException {
+        new Alert(Alert.AlertType.INFORMATION, "Not Implemented !");
+        return false;
     }
 
-    public String getSupplierType(String sup_id) throws SQLException, ClassNotFoundException {
-        ResultSet rs = CrudUtil.execute("select Supplier_Type from other_suppliers where Supplier_ID = ?", sup_id);
-        while (rs.next()) {
-            return rs.getString(1);
-        }
-        return "Not found";
-    }
-
-    public boolean updateStockItem(CustomEntity entity) throws SQLException, ClassNotFoundException {
+    @Override
+    public boolean update(CustomEntity entity) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
 
         connection.setAutoCommit(false);
 
         Boolean isInsertedToOther_stocks = CrudUtil.execute("update other_suppliers_stocks" +
-                " set Supplier_ID = ?," +
-                "    Stock_ID    = ?," +
-                "    Date        = ?" +
-                " where Stock_ID = ?;",
+                        " set Supplier_ID = ?," +
+                        "    Stock_ID    = ?," +
+                        "    Date        = ?" +
+                        " where Stock_ID = ?;",
                 entity.getOtherSuppliersStocks_supplier_ID(),
                 entity.getOtherSuppliersStocks_stock_ID(),
                 entity.getOtherSuppliersStocks_date(),
                 entity.getOtherSuppliersStocks_stock_ID());
 
         Boolean isInsertedToOther_suppliers_stocks = CrudUtil.execute("update other_stocks " +
-                " set Stock_ID   = ?," +
-                "    Stock_Type = ?," +
-                "    Qty        = ?," +
-                "    Price      = ?" +
-                " where Stock_ID = ?;",
+                        " set Stock_ID   = ?," +
+                        "    Stock_Type = ?," +
+                        "    Qty        = ?," +
+                        "    Price      = ?" +
+                        " where Stock_ID = ?;",
                 entity.getOtherSuppliersStocks_stock_ID(),
                 entity.getOther_stock_Type(),
                 entity.getOther_stock_qty(),
@@ -122,13 +119,33 @@ public class OtherStockItemDAOImpl {
         }
     }
 
-    public Boolean insertInto_OtherStocks(String supID, String stockID, String date) throws SQLException, ClassNotFoundException {
-        return  CrudUtil.execute("insert into other_suppliers_stocks (Supplier_ID, Stock_ID, Date)" +
-                "values (?, ?, ?);", supID, stockID, date);
+    @Override
+    public Boolean insertInto_OtherStocks(OtherSuppliersStocks entity) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("insert into other_suppliers_stocks (Supplier_ID, Stock_ID, Date)" +
+                "values (?, ?, ?);", entity.getSupplier_ID(), entity.getStock_ID(), entity.getDate());
     }
 
-    public Boolean insertInto_OtherSuppliersStocks(String stockID, String type, int qty, double price) throws SQLException, ClassNotFoundException {
+    @Override
+    public Boolean insertInto_OtherSuppliersStocks(OtherStocks entity) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("insert into other_stocks(Stock_ID, Stock_Type, Qty, Price) " +
-                "values(?, ?, ?, ?)", stockID, type, qty, price);
+                "values(?, ?, ?, ?)", entity.getStock_ID(), entity.getStock_Type(), entity.getQty(), entity.getPrice());
+    }
+
+    @Override
+    public String getSupplierName(String sup_id) throws SQLException, ClassNotFoundException {
+        ResultSet rs = CrudUtil.execute("select Name from other_suppliers where Supplier_ID = ?", sup_id);
+        while (rs.next()) {
+            return rs.getString(1);
+        }
+        return "Not found";
+    }
+
+    @Override
+    public String getSupplierType(String sup_id) throws SQLException, ClassNotFoundException {
+        ResultSet rs = CrudUtil.execute("select Supplier_Type from other_suppliers where Supplier_ID = ?", sup_id);
+        while (rs.next()) {
+            return rs.getString(1);
+        }
+        return "Not found";
     }
 }

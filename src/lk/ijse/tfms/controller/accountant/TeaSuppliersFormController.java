@@ -221,7 +221,7 @@ public class TeaSuppliersFormController {
 
             try {
                 TeaSupplierDTO teaSupplierDTO = new TeaSupplierDTO(supID, name, id, address, mobileNo);
-                boolean isUpdated = teaSupplierBO.updateSupplier(teaSupplierDTO, supID);
+                boolean isUpdated = teaSupplierBO.updateSupplier(teaSupplierDTO);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Updated !").show();
                 } else {

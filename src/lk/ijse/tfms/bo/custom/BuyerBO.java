@@ -12,7 +12,7 @@ public interface BuyerBO {
 
     public boolean insertNewBuyer(BuyerDTO buyerDTO) throws SQLException, ClassNotFoundException;
 
-    public boolean updateBuyer(BuyerDTO buyerDTO, String buyerID) throws SQLException, ClassNotFoundException;
+    public boolean updateBuyer(BuyerDTO buyerDTO) throws SQLException, ClassNotFoundException;
 
     public Boolean deleteBuyer(String buyerID) throws SQLException, ClassNotFoundException;
 }

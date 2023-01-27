@@ -193,7 +193,7 @@ public class BuyersFormController {
 
                 try {
                     BuyerDTO buyerDTO = new BuyerDTO(buyerID, name, address, contact);
-                    boolean isUpdated = buyerBO.updateBuyer(buyerDTO, buyerID);
+                    boolean isUpdated = buyerBO.updateBuyer(buyerDTO);
                     if (isUpdated) {
                         new Alert(Alert.AlertType.CONFIRMATION, "Updated !").show();
                     } else {

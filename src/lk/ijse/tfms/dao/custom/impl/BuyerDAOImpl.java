@@ -1,5 +1,7 @@
-package lk.ijse.tfms.dao;
+package lk.ijse.tfms.dao.custom.impl;
 
+import javafx.scene.control.Alert;
+import lk.ijse.tfms.dao.custom.BuyerDAO;
 import lk.ijse.tfms.entity.Buyers;
 import lk.ijse.tfms.util.CrudUtil;
 
@@ -7,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class BuyerDAOImpl implements BuyerDAO{
+public class BuyerDAOImpl implements BuyerDAO {
 
     public ArrayList<Buyers> getData() throws SQLException, ClassNotFoundException {
         ArrayList<Buyers> buyers = new ArrayList<>();
@@ -35,18 +37,19 @@ public class BuyerDAOImpl implements BuyerDAO{
         );
     }
 
-    public boolean update(Buyers entity, String buyerID) throws SQLException, ClassNotFoundException {
+    public boolean update(Buyers entity) throws SQLException, ClassNotFoundException {
         Boolean isUpdated = CrudUtil.execute("update buyers set  Name = ?, Address = ?, Contact = ? where Buyer_ID = ?;",
                 entity.getName(),
                 entity.getAddress(),
                 entity.getContact(),
-                buyerID
+                entity.getBuyer_ID()
         );
         return isUpdated;
     }
 
     @Override
     public String getCurrentID() throws SQLException, ClassNotFoundException {
+        new Alert(Alert.AlertType.INFORMATION,"Not Implemented !");
         return null;
     }
 }

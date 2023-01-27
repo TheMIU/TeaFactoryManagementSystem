@@ -1,7 +1,8 @@
 package lk.ijse.tfms.bo.custom.impl;
 
 import lk.ijse.tfms.bo.custom.PaymentBO;
-import lk.ijse.tfms.dao.PaymentDAOImpl;
+import lk.ijse.tfms.dao.custom.PaymentDAO;
+import lk.ijse.tfms.dao.custom.impl.PaymentDAOImpl;
 import lk.ijse.tfms.dto.PaymentDTO;
 import lk.ijse.tfms.entity.Payment;
 
@@ -9,11 +10,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PaymentBOImpl implements PaymentBO {
-    PaymentDAOImpl paymentDAO = new PaymentDAOImpl();
+    PaymentDAO paymentDAO = new PaymentDAOImpl();
 
     @Override
     public ArrayList<PaymentDTO> getPaymentData() throws SQLException, ClassNotFoundException {
-        ArrayList<Payment> paymentData = paymentDAO.getPaymentData();
+        ArrayList<Payment> paymentData = paymentDAO.getData();
         ArrayList<PaymentDTO> paymentDTOS = new ArrayList<>();
         for (Payment p : paymentData) {
             paymentDTOS.add(new PaymentDTO(p.getPayment_ID(), p.getDate(), p.getReason(), p.getAmount(), p.getMethod(), p.getType(), p.getBuyer_ID(), p.getEmpID(), p.getSupplier_ID()));
@@ -57,7 +58,7 @@ public class PaymentBOImpl implements PaymentBO {
 
     @Override
     public String getCurrentPaymentID() throws SQLException, ClassNotFoundException {
-        return paymentDAO.getCurrentPaymentID();
+        return paymentDAO.getCurrentID();
     }
 
     public String getSupplierName(String id) throws SQLException, ClassNotFoundException {
@@ -75,17 +76,17 @@ public class PaymentBOImpl implements PaymentBO {
 
     @Override
     public boolean insertNewPayment(PaymentDTO dto) throws SQLException, ClassNotFoundException {
-        return paymentDAO.insertNewPayment(new Payment(dto.getPayment_ID(), dto.getDate(), dto.getReason(), dto.getAmount(), dto.getMethod(), dto.getType(), dto.getBuyerID(), dto.getEmpID(), dto.getSupID()));
+        return paymentDAO.add(new Payment(dto.getPayment_ID(), dto.getDate(), dto.getReason(), dto.getAmount(), dto.getMethod(), dto.getType(), dto.getBuyerID(), dto.getEmpID(), dto.getSupID()));
     }
 
     @Override
     public boolean updatePayment(PaymentDTO dto) throws SQLException, ClassNotFoundException {
-        return paymentDAO.updatePayment(new Payment(dto.getPayment_ID(), dto.getDate(), dto.getReason(), dto.getAmount(), dto.getMethod(), dto.getType(), dto.getBuyerID(), dto.getEmpID(), dto.getSupID()));
+        return paymentDAO.update(new Payment(dto.getPayment_ID(), dto.getDate(), dto.getReason(), dto.getAmount(), dto.getMethod(), dto.getType(), dto.getBuyerID(), dto.getEmpID(), dto.getSupID()));
     }
 
     @Override
     public Boolean deletePayment(String paymentID) throws SQLException, ClassNotFoundException {
-        return paymentDAO.deletePayment(paymentID);
+        return paymentDAO.delete(paymentID);
     }
 
     @Override
