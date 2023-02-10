@@ -91,7 +91,7 @@ public class PaymentBOImpl implements PaymentBO {
     }
 
     @Override
-    public double getSummery(String credit) throws SQLException, ClassNotFoundException {
-        return paymentDAO.getSummery("credit");
+    public double getSummery(String type) throws SQLException, ClassNotFoundException {
+        return paymentDAO.getSummery(type);
     }
 }

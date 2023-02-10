@@ -198,11 +198,11 @@ public class OtherStocksFormController {
                     if(rbValue.equals("All Stocks")){
                         loadStockData("");
                     }else if(rbValue.equals("Fertilizer Stock")){
-                        loadStockData2("fertilizer");
+                        loadStockData2("Fertilizer");
                     }else if(rbValue.equals("Firewood Stock")){
-                        loadStockData2("firewood");
+                        loadStockData2("Firewood");
                     }else if(rbValue.equals("Bags Stock")){
-                        loadStockData2("bags");
+                        loadStockData2("Bags");
                     }
                 }
             }
@@ -271,7 +271,7 @@ public class OtherStocksFormController {
 
     //-----------------------New Item Button---------------------
     public void btnNewOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        makeEditableTxtField(true);
+        makeEditableTxtField2(true);
         clearFields();
 
         btnEdit.setDisable(true);
@@ -404,6 +404,13 @@ public class OtherStocksFormController {
     }
 
     //===================================================
+
+    private void makeEditableTxtField2(boolean b) {
+        txtSupID.setEditable(b);
+        txtPrice.setEditable(b);
+        txtDate.setEditable(b);
+        txtQty.setEditable(b);
+    }
 
     private void makeEditableTxtField(boolean b) {
         //txtSupID.setEditable(b);

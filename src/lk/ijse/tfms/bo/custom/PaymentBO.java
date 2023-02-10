@@ -29,5 +29,5 @@ public interface PaymentBO extends SuperBO {
 
     public Boolean deletePayment(String paymentID) throws SQLException, ClassNotFoundException;
 
-    double getSummery(String credit) throws SQLException, ClassNotFoundException;
+    double getSummery(String type) throws SQLException, ClassNotFoundException;
 }

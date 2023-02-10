@@ -59,7 +59,7 @@ public class AdminDashBoardFormController {
         if (prof > 0) {
             lblSummery.setText("Profit");
         } else if (prof == 0) {
-            lblSummery.setText("0");
+            lblSummery.setText("Equal");
         } else {
             lblSummery.setText("loss");
         }
