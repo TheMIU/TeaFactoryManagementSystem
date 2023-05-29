@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class CrudUtil {
+    //  Code Reusability eka pawathwaganimat ha Boiler Plate codes walakwa ganimata
+
      public static <T>T execute(String sql, Object... args) throws SQLException, ClassNotFoundException {
          PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
 

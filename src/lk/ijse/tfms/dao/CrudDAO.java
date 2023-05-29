@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface CrudDAO<T> extends SuperDAO{
+    // facade -	Gathering most common methods into a single interface to improve code re-usability
+
     public ArrayList<T> getData() throws SQLException, ClassNotFoundException;
 
     public Boolean delete(String id) throws SQLException, ClassNotFoundException;

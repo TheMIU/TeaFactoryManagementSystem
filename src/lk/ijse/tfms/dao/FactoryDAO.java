@@ -25,6 +25,9 @@ public class FactoryDAO {
         TEA_SUPPLIER
     }
 
+    // factory - Object creation logic eka hide krnna.
+    // singleton  - object ekak eka parak hadala eka re use karanna
+
     public SuperDAO getDAO(Types types){
         switch (types){
             case BUYER:

@@ -1,6 +1,8 @@
 package lk.ijse.tfms.entity;
 
 public class Buyers {
+    // Data layer eke thiyana table ha property gana coding level idea ekk ganna entity classes create karnwa
+
     private String buyer_ID;
     private String name;
     private String address;
